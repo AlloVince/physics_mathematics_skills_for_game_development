@@ -74,6 +74,59 @@
 <Item><Old>// 位置に速度を加える</Old><New>// 对位置加入速度</New></Item>
 <Item><Old>// 速度に加速度を加える</Old><New>// 为速度加上加速度</New></Item>
 
+<!--第2章翻译-->
+<Item><Old>// 背景のスクロール</Old><New>// 背景从一端卷动到另一端</New></Item>
+<Item><Old>// 背景幅</Old><New>// 背景宽度</New></Item>
+<Item><Old>// カメラ速さ</Old><New>// 镜头速度</New></Item>
+<Item><Old>// カメラの初期位置</Old><New>// 镜头的初始位置</New></Item>
+<Item><Old>// 背景の初期位置</Old><New>// 背景的初始位置</New></Item>
+<Item><Old>// 背景の位置</Old><New>// 背景的位置</New></Item>
+
+<Item><Old>// 背景の多重スクロール</Old><New>// 背景的多重卷动</New></Item>
+<Item><Old>// 背景1幅</Old><New>// 背景1宽度</New></Item>
+<Item><Old>// 背景2幅</Old><New>// 背景2宽度</New></Item>
+<Item><Old>// 背景3幅</Old><New>// 背景3宽度</New></Item>
+
+<Item><Old>// キャラの動きに合わせた背景のスクロール</Old><New>// 与角色运动联动的背景卷动</New></Item>
+<Item><Old>// キャラ幅</Old><New>// 角色宽度</New></Item>
+<Item><Old>// キャラ速さ</Old><New>// 角色速度</New></Item>
+<Item><Old>// 画面上およびフィールド上のキャラ位置</Old><New>// 角色在画面上及区域内的坐标</New></Item>
+<Item><Old>// カメラはいったんキャラの位置へ</Old><New>// 镜头暂时回到角色的位置</New></Item>
+<Item><Old>// カメラ左移動限界</Old><New>// 检查镜头的左移边界</New></Item>
+<Item><Old>// カメラ右移動限界</Old><New>// 检查镜头的右移边界</New></Item>
+<Item><Old>// スクロール開始幅</Old><New>// 卷动开始宽度</New></Item>
+<Item><Old>// カメラが左に寄っているかチェック</Old><New>// 检查镜头是否靠近了左侧</New></Item>
+<Item><Old>// カメラが右に寄っているかチェック</Old><New>// 检查镜头是否靠近了右侧</New></Item>
+
+<Item><Old>// マップのスクロール</Old><New>// 地图块组合的地图卷动</New></Item>
+<Item><Old>// マップ幅</Old><New>// 地图宽度</New></Item>
+<Item><Old>// マップ高さ</Old><New>// 地图高度</New></Item>
+<Item><Old>// チップサイズ</Old><New>// 地图块大小</New></Item>
+<Item><Old>// カメラ座標</Old><New>// 镜头坐标</New></Item>
+<Item><Old>// マップデータ</Old><New>// 地图数据</New></Item>
+<Item><Old>// マップチップの描画</Old><New>// 地图块的渲染</New></Item>
+<Item><Old>// マップの描画</Old><New>// 地图的渲染</New></Item>
+<Item><Old>// マップの表示座標</Old><New>// 地图的显示坐标</New></Item>
+<Item><Old>// 描画する左上チップ番号</Old><New>// 需要渲染的第一个地图块编号</New></Item>
+<Item><Old>// 描画する左上チップの座標</Old><New>// 需要渲染的第一个地图块坐标</New></Item>
+<Item><Old>// 描画する現在チップの座標</Old><New>// 当前渲染的地图块坐标</New></Item>
+<Item><Old>// 描画するチップ数(縦横方向)</Old><New>// 渲染的地图块数量（水平垂直方向）</New></Item>
+<Item><Old>// 描画するチップ数横</Old><New>// 渲染的横向地图块数量</New></Item>
+<Item><Old>// 描画するチップ数縦</Old><New>// 渲染的纵向地图块数量</New></Item>
+
+<Item><Old>// 単純なラスタスクロール</Old><New>// 让图像扭曲倾斜</New></Item>
+<Item><Old>// 描画ラインの位置</Old><New>// 图形线的位置</New></Item>
+<Item><Old>// 描画ラインのx座標</Old><New>// 图形线的x坐标</New></Item>
+<Item><Old>// 描画ラインのy座標</Old><New>// 图形线的y坐标</New></Item>
+<Item><Old>// ラスタスクロール</Old><New>// 将图形扭曲为波纹形状</New></Item>
+<Item><Old>// 揺らめくラスタスクロール</Old><New>// 图形随时间摇摆</New></Item>
+<Item><Old>// 遠近ラスタスクロール</Old><New>// 带有纵深感的卷动</New></Item>
+<Item><Old>// 絵の上の幅</Old><New>// 图形上边宽度</New></Item>
+<Item><Old>// 絵の下の幅</Old><New>// 图形下边宽度</New></Item>
+<Item><Old>// 現在のラインの絵の幅</Old><New>// 当前图形线的宽度</New></Item>
+<Item><Old>// ラインのベース位置</Old><New>// 图形线的基础位置</New></Item>
+<Item><Old>// ラスタ位置セット</Old><New>// 设置图形线的最后位置</New></Item>
+
 <!--DirectX部分翻译-->
 <Item><Old>// 画面幅</Old><New>// 画面宽度</New></Item>
 <Item><Old>// 画面高さ</Old><New>// 画面高度</New></Item>
