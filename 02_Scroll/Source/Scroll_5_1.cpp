@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Scroll_5_1.cpp
-// 遠近ラスタスクロール
+// 带有纵深感的卷动
 // 
 //------------------------------------------------------------
 
@@ -10,9 +10,9 @@
 #define PI					3.14159265f			// 圆周率
 #define VIEW_WIDTH			640					// 画面宽度
 #define VIEW_HEIGHT			480					// 画面高度
-#define PIC_WIDTH_UP		960					// 絵の上の幅
-#define PIC_WIDTH_DOWN		1920				// 絵の下の幅
-#define CAMERA_VEL			10.0f				// カメラ速さ
+#define PIC_WIDTH_UP		960					// 图形上边宽度
+#define PIC_WIDTH_DOWN		1920				// 图形下边宽度
+#define CAMERA_VEL			10.0f				// 镜头速度
 
 float		fCamera_x;
 float		fBack_x;
@@ -21,13 +21,13 @@ struct DRAWPOINT {
 	float			x, y;
 };
 
-DRAWPOINT		v2Points[VIEW_HEIGHT];			// 渲染ラインの位置
+DRAWPOINT		v2Points[VIEW_HEIGHT];			// 图形线的位置
 
 
 int InitBack( void )							// 只在程序开始时调用一次
 {
-	fCamera_x = VIEW_WIDTH / 2.0f;				// カメラの初期位置
-	fBack_x = 0.0f;								// 背景の初期位置
+	fCamera_x = VIEW_WIDTH / 2.0f;				// 镜头的初始位置
+	fBack_x = 0.0f;								// 背景的初始位置
 
 	return 0;
 }
@@ -36,8 +36,8 @@ int InitBack( void )							// 只在程序开始时调用一次
 int MoveBack( void )							// 每帧调用
 {
 	int						i;
-	float					fLineWidth;			// 現在のラインの絵の幅
-	float					fLineBase;			// ラインのベース位置
+	float					fLineWidth;			// 当前图形线的宽度
+	float					fLineBase;			// 图形线的基础位置
 
 	// 左方向键被按下时向左移动
 	if ( GetAsyncKeyState( VK_LEFT ) ) {
@@ -56,7 +56,7 @@ int MoveBack( void )							// 每帧调用
 
 	fBack_x = VIEW_WIDTH / 2.0f - fCamera_x;
 
-	// ラスタ位置セット
+	// 设置图形线的最后位置
 	fLineWidth = PIC_WIDTH_UP;
 	fLineBase = ( PIC_WIDTH_DOWN - PIC_WIDTH_UP ) / 2.0f;
 	for ( i = 0; i < VIEW_HEIGHT; i++ ) {

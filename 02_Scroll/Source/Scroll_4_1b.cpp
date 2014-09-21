@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Scroll_4_1b.cpp
-// 揺らめくラスタスクロール
+// 图形随时间摇摆
 // 
 //------------------------------------------------------------
 
@@ -10,13 +10,13 @@
 #define PI					3.14159265f			// 圆周率
 #define VIEW_WIDTH			640					// 画面宽度
 #define VIEW_HEIGHT			480					// 画面高度
-#define PICTURE_WIDTH		640					// 背景幅
+#define PICTURE_WIDTH		640					// 背景宽度
 
 struct DRAWPOINT {
 	float			x, y;
 };
 
-DRAWPOINT		v2Points[VIEW_HEIGHT];			// 渲染ラインの位置
+DRAWPOINT		v2Points[VIEW_HEIGHT];			// 图形线的位置
 
 
 int InitBack( void )							// 只在程序开始时调用一次

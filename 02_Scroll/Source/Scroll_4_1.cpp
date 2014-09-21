@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Scroll_4_1.cpp
-// 単純なラスタスクロール
+// 让图像扭曲倾斜
 // 
 //------------------------------------------------------------
 
@@ -10,13 +10,13 @@
 #define PI					3.14159265f			// 圆周率
 #define VIEW_WIDTH			640					// 画面宽度
 #define VIEW_HEIGHT			480					// 画面高度
-#define PICTURE_WIDTH		640					// 背景幅
+#define PICTURE_WIDTH		640					// 背景宽度
 
 struct DRAWPOINT {
 	float			x, y;
 };
 
-DRAWPOINT		v2Points[VIEW_HEIGHT];			// 渲染ラインの位置
+DRAWPOINT		v2Points[VIEW_HEIGHT];			// 图形线的位置
 
 
 int InitBack( void )							// 只在程序开始时调用一次
@@ -31,8 +31,8 @@ int MoveBack( void )							// 每帧调用
 	int						i;
 
 	for ( i = 0; i < VIEW_HEIGHT; i++ ) {
-		v2Points[i].y = ( float )i;				// 渲染ラインのy座標
-		v2Points[i].x = ( float )i;				// 渲染ラインのx座標
+		v2Points[i].y = ( float )i;				// 图形线的y坐标
+		v2Points[i].x = ( float )i;				// 图形线的x坐标
 	}
 
 	return 0;

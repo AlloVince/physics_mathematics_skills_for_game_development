@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Scroll_2_1a.cpp
-// キャラの動きに合わせた背景のスクロール2
+// 与角色运动联动的背景卷动2
 // 
 //------------------------------------------------------------
 
@@ -9,20 +9,20 @@
 
 #define VIEW_WIDTH			640					// 画面宽度
 #define VIEW_HEIGHT			480					// 画面高度
-#define PICTURE_WIDTH		1280				// 背景幅
-#define CHARA_WIDTH			128					// キャラ幅
-#define CHARA_VEL			10.0f				// キャラ速さ
-#define SCROLL_DIF			150.0f				// スクロール開始幅
+#define PICTURE_WIDTH		1280				// 背景宽度
+#define CHARA_WIDTH			128					// 角色宽度
+#define CHARA_VEL			10.0f				// 角色速度
+#define SCROLL_DIF			150.0f				// 卷动开始宽度
 
 float		fCamera_x;
 float		fBack_x;
-float		fChara_x, fChara_sx;				// 画面上およびフィールド上のキャラ位置
+float		fChara_x, fChara_sx;				// 角色在画面上及区域内的坐标
 
 
 int InitBack( void )							// 只在程序开始时调用一次
 {
-	fCamera_x = VIEW_WIDTH / 2.0f;				// カメラの初期位置
-	fBack_x = 0.0f;								// 背景の初期位置
+	fCamera_x = VIEW_WIDTH / 2.0f;				// 镜头的初始位置
+	fBack_x = 0.0f;								// 背景的初始位置
 	fChara_sx = VIEW_WIDTH / 2.0f;
 	fChara_x = VIEW_WIDTH / 2.0f;
 
@@ -47,16 +47,16 @@ int MoveChara( void )							// 每帧调用
 		}
 	}
 
-	if ( fCamera_x < fChara_sx - SCROLL_DIF ) {		// カメラが左に寄っているかチェック
+	if ( fCamera_x < fChara_sx - SCROLL_DIF ) {		// 检查镜头是否靠近了左侧
 		fCamera_x = fChara_sx - SCROLL_DIF;
 	}
-	if ( fCamera_x > fChara_sx + SCROLL_DIF ) {		// カメラが右に寄っているかチェック
+	if ( fCamera_x > fChara_sx + SCROLL_DIF ) {		// 检查镜头是否靠近了右侧
 		fCamera_x = fChara_sx + SCROLL_DIF;
 	}
-	if ( fCamera_x < VIEW_WIDTH / 2.0f ) {						// カメラ左移動限界③
+	if ( fCamera_x < VIEW_WIDTH / 2.0f ) {						// 检查镜头的左移边界③
 		fCamera_x = VIEW_WIDTH / 2.0f;
 	}
-	if ( fCamera_x > PICTURE_WIDTH - VIEW_WIDTH / 2.0f ) {		// カメラ右移動限界④
+	if ( fCamera_x > PICTURE_WIDTH - VIEW_WIDTH / 2.0f ) {		// 检查镜头的右移边界④
 		fCamera_x = PICTURE_WIDTH - VIEW_WIDTH / 2.0f;
 	}
 	fChara_x = fChara_sx - fCamera_x + VIEW_WIDTH / 2.0f - CHARA_WIDTH / 2.0f;

@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Scroll_1_1.cpp
-// 背景のスクロール
+// 背景从一端卷动到另一端
 // 
 //------------------------------------------------------------
 
@@ -10,8 +10,8 @@
 
 #define VIEW_WIDTH			640					// 画面宽度
 #define VIEW_HEIGHT			480					// 画面高度
-#define PICTURE_WIDTH		1600				// 背景幅
-#define CAMERA_VEL			10.0f				// カメラ速さ
+#define PICTURE_WIDTH		1600				// 背景宽度
+#define CAMERA_VEL			10.0f				// 镜头速度
 
 float		fCamera_x;
 float		fBack_x;
@@ -19,8 +19,8 @@ float		fBack_x;
 
 int InitBack( void )							// 只在程序开始时调用一次
 {
-	fCamera_x = VIEW_WIDTH / 2.0f;				// カメラの初期位置①
-	fBack_x = VIEW_WIDTH / 2.0f - fCamera_x;	// 背景の初期位置②
+	fCamera_x = VIEW_WIDTH / 2.0f;				// 镜头的初始位置①
+	fBack_x = VIEW_WIDTH / 2.0f - fCamera_x;	// 背景的初始位置②
 
 	return 0;
 }
@@ -43,7 +43,7 @@ int MoveBack( void )							// 每帧调用
 		}
 	}
 
-	fBack_x = VIEW_WIDTH / 2.0f - fCamera_x;	// 背景の位置⑤
+	fBack_x = VIEW_WIDTH / 2.0f - fCamera_x;	// 背景的位置⑤
 
 	return 0;
 }

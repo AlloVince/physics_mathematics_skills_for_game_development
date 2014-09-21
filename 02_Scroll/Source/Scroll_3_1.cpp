@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Scroll_3_1.cpp
-// マップのスクロール
+// 地图块组合的地图卷动
 // 
 //------------------------------------------------------------
 #define _CRT_SECURE_NO_WARNINGS
@@ -9,22 +9,22 @@
 
 #define VIEW_WIDTH			640					// 画面宽度
 #define VIEW_HEIGHT			480					// 画面高度
-#define PICTURE_WIDTH		1600				// 背景幅
-#define CAMERA_VEL			10.0f				// カメラ速さ
-#define MAPSIZE_X			21					// マップ幅
-#define MAPSIZE_Y			12					// マップ高さ
-#define CHIPSIZE			64					// チップサイズ
+#define PICTURE_WIDTH		1600				// 背景宽度
+#define CAMERA_VEL			10.0f				// 镜头速度
+#define MAPSIZE_X			21					// 地图宽度
+#define MAPSIZE_Y			12					// 地图高度
+#define CHIPSIZE			64					// 地图块大小
 
-float		fCamera_x, fCamera_y;				// カメラ座標
-int			nMapData[MAPSIZE_Y][MAPSIZE_X];		// マップデータ
+float		fCamera_x, fCamera_y;				// 镜头坐标
+int			nMapData[MAPSIZE_Y][MAPSIZE_X];		// 地图数据
 
 int DrawMapChip( float x, float y, int nNumber );
-												// マップチップの描画
+												// 地图块的渲染
 
 int InitMap( void )							// 只在程序开始时调用一次
 {
-	fCamera_x = VIEW_WIDTH  / 2.0f;				// カメラの初期位置
-	fCamera_y = VIEW_HEIGHT / 2.0f;				// カメラの初期位置
+	fCamera_x = VIEW_WIDTH  / 2.0f;				// 镜头的初始位置
+	fCamera_y = VIEW_HEIGHT / 2.0f;				// 镜头的初始位置
 
 	return 0;
 }
@@ -68,23 +68,23 @@ int MoveMap( void )							// 每帧调用
 }
 
 
-int DrawMap( void )							// マップの描画
+int DrawMap( void )							// 地图的渲染
 {
 	int					i, j;
-	float				fMap_x, fMap_y;				// マップの表示座標
-	int					nBaseChip_x, nBaseChip_y;	// 渲染する左上チップ番号
-	float				fBasePos_x, fBasePos_y;		// 渲染する左上チップの座標
-	float				fChipPos_x, fChipPos_y;		// 渲染する現在チップの座標
-	int					nChipNum_x, nChipNum_y;		// 渲染するチップ数(縦横方向)
+	float				fMap_x, fMap_y;				// 地图的显示坐标
+	int					nBaseChip_x, nBaseChip_y;	// 需要渲染的第一个地图块编号
+	float				fBasePos_x, fBasePos_y;		// 需要渲染的第一个地图块坐标
+	float				fChipPos_x, fChipPos_y;		// 当前渲染的地图块坐标
+	int					nChipNum_x, nChipNum_y;		// 渲染的地图块数量（水平垂直方向）
 
-	fMap_x = VIEW_WIDTH  / 2.0f - fCamera_x;		// マップの表示座標
+	fMap_x = VIEW_WIDTH  / 2.0f - fCamera_x;		// 地图的显示坐标
 	fMap_y = VIEW_HEIGHT / 2.0f - fCamera_y;
-	nBaseChip_x = ( int )-fMap_x / CHIPSIZE;		// 渲染する左上チップ番号
+	nBaseChip_x = ( int )-fMap_x / CHIPSIZE;		// 需要渲染的第一个地图块编号
 	nBaseChip_y = ( int )-fMap_y / CHIPSIZE;
-	fBasePos_x = fMap_x + nBaseChip_x * CHIPSIZE;	// 渲染する左上チップの座標
+	fBasePos_x = fMap_x + nBaseChip_x * CHIPSIZE;	// 需要渲染的第一个地图块坐标
 	fBasePos_y = fMap_y + nBaseChip_y * CHIPSIZE;
-	nChipNum_x = VIEW_WIDTH  / CHIPSIZE + 1 + 1;	// 渲染するチップ数横
-	nChipNum_y = VIEW_HEIGHT / CHIPSIZE + 1 + 1;	// 渲染するチップ数縦
+	nChipNum_x = VIEW_WIDTH  / CHIPSIZE + 1 + 1;	// 渲染的横向地图块数量
+	nChipNum_y = VIEW_HEIGHT / CHIPSIZE + 1 + 1;	// 渲染的纵向地图块数量
 	fChipPos_y = fBasePos_y;
 	for ( i = 0; i < nChipNum_y; i++ ) {
 		fChipPos_x = fBasePos_x;
@@ -493,7 +493,7 @@ HRESULT InitGeometry( void )
 }
 
 
-// マップデータのロード
+// 地图数据のロード
 int LoadMapData( void )
 {
 	int				i, j;
@@ -625,7 +625,7 @@ int DrawPicture( float x, float y, TEX_PICTURE *pTexPic )
 }
 
 
-// マップチップの描画
+// 地图块的渲染
 int DrawMapChip( float x, float y, int nNumber )
 {
 	float			tu1, tv1;
