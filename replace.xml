@@ -1,4 +1,72 @@
 <Replace>
+<!--第1章翻译-->
+<Item><Old>// 物体の真横への移動(はね返り付き)</Old><New>// 让物体沿水平方向运动（物体碰到画面边缘时折回）</New></Item>
+<Item><Old>// 物体の真横への移動</Old><New>// 让物体沿水平方向运动</New></Item>
+<Item><Old>// 右端</Old><New>// 物体碰到右端</New></Item>
+<Item><Old>// はね返る</Old><New>// 弹回</New></Item>
+<Item><Old>// ちょうど壁の位置へ</Old><New>// 重设坐标为画面边缘</New></Item>
+<Item><Old>// 左端</Old><New>// 物体碰到左端</New></Item>
+
+<Item><Old>// キー入力による真横への移動</Old><New>// 通过键盘输入控制物体在水平方向运动</New></Item>
+<Item><Old>// プレイヤーの速さ</Old><New>// 玩家的速度</New></Item>
+<Item><Old>// 左キーが押されていれば左へ</Old><New>// 左方向键被按下时向左移动</New></Item>
+<Item><Old>// 右キーが押されていれば右へ</Old><New>// 右方向键被按下时向右移动</New></Item>
+
+<Item><Old>// キー入力による縦and横への移動</Old><New>// 通过键盘输入控制物体在水平及垂直方向运动</New></Item>
+<Item><Old>// 上キーが押されていれば上へ</Old><New>// 上方向键被按下时向上移动</New></Item>
+<Item><Old>// 下キーが押されていれば下へ</Old><New>// 下方向键被按下时向下移动</New></Item>
+
+<Item><Old>// キー入力による縦and横への移動(斜め移動も等速)</Old><New>// 通过键盘输入控制物体在水平及垂直方向运动（斜方向移动速度不变）</New></Item>
+
+<Item><Old>// 物体の斜め30度方向への移動</Old><New>// 让物体沿30度角方向运动</New></Item>
+<Item><Old>// 円周率</Old><New>// 圆周率</New></Item>
+<Item><Old>// 初速の設定</Old><New>// 设置初始速度</New></Item>
+<Item><Old>// 実際に動かす</Old><New>// 实际运动</New></Item>
+<Item><Old>// 画面外にはみ出たら初期位置に戻す</Old><New>// 运动到画面外时回到初始位置</New></Item>
+<Item><Old>// 物体の移動方向の回転</Old><New>// 使用弧度让物体的运动方向每次都不同</New></Item>
+<Item><Old>// 角度を進める</Old><New>// 增加角的弧度</New></Item>
+<Item><Old>// 一周したら角度を戻す</Old><New>// 经过一周后弧度重置</New></Item>
+
+<Item><Old>// 物体に重力をかける</Old><New>// 在物体运动中加入重力</New></Item>
+<Item><Old>// y方向の初期位置（この場合無意味）</Old><New>// y方向的初始位置（本程序中无意义）</New></Item>
+<Item><Old>// y方向の初期位置</Old><New>// y方向的初始位置</New></Item>
+<Item><Old>// y方向の初速</Old><New>// y方向的初始速度</New></Item>
+<Item><Old>// 位置に速度を足す</Old><New>// 对位置加入速度</New></Item>
+<Item><Old>// 速度に加速度を足す</Old><New>// 为速度加上加速度</New></Item>
+<Item><Old>// 重力があるときの上への打ち上げ</Old><New>// 重力作用下的抛物运动</New></Item>
+<Item><Old>// 重力がある場合の、積分結果による軌道</Old><New>// 重力作用下基于积分计算运动轨道</New></Item>
+<Item><Old>// （この場合無意味）</Old><New>// （本程序中无意义）</New></Item>
+<Item><Old>// 物体の時刻を進める</Old><New>// 增加物体的時刻</New></Item>
+<Item><Old>// 物体の時刻</Old><New>// 物体的时刻</New></Item>
+
+<Item><Old>// 物体をランダムに打ち出す(正規分布の乱数使用)</Old><New>// 物体随机飞溅运动（使用正态分布的随机数）</New></Item>
+<Item><Old>// 物体をランダムに打ち出す(%使用)</Old><New>// 物体随机飞溅运动（使用%）</New></Item>
+<Item><Old>// 物体をランダムに打ち出す</Old><New>// 物体随机飞溅运动</New></Item>
+<Item><Old>// 最大球数</Old><New>// 球的最大数量</New></Item>
+<Item><Old>// 横方向速度幅(標準偏差)</Old><New>// 水平方向单位速度（标准差）</New></Item>
+<Item><Old>// 横方向速度幅</Old><New>// 水平方向单位速度</New></Item>
+<Item><Old>// 縦方向速度幅(標準偏差)</Old><New>// 垂直方向单位速度（标准差）</New></Item>
+<Item><Old>// 縦方向速度幅</Old><New>// 垂直方向单位速度</New></Item>
+<Item><Old>// 基礎速度</Old><New>// 基础速度</New></Item>
+<Item><Old>// 有効かどうか</Old><New>// 是否有效</New></Item>
+<Item><Old>// 球バッファ</Old><New>// 球的缓冲</New></Item>
+<Item><Old>// 球の数</Old><New>// 球的数量</New></Item>
+<Item><Old>// 全ての球を無効に</Old><New>// 将所有的球设置为无效</New></Item>
+<Item><Old>// 弾の数はゼロ</Old><New>// 飞溅的数量为0</New></Item>
+<Item><Old>// 球の移動</Old><New>// 球的移动</New></Item>
+<Item><Old>// 画面外に出れば無効に</Old><New>// 超出画面后变为无效</New></Item>
+<Item><Old>// 球の発生</Old><New>// 球的产生</New></Item>
+<Item><Old>// 画面の真ん中に</Old><New>// 画面正中</New></Item>
+<Item><Old>// 画面の下端に</Old><New>// 画面下端</New></Item>
+<Item><Old>// Vxをランダム設定</Old><New>// 随机设置Vx的初始值</New></Item>
+<Item><Old>// Vyをランダム設定</Old><New>// 随机设置Vy的初始值</New></Item>
+<Item><Old>// フレーム時間</Old><New>// 时间计数</New></Item>
+
+<Item><Old>// 物体を円運動させる</Old><New>// 让物体进行圆周运动</New></Item>
+<Item><Old>// 回転半径</Old><New>// 旋转半径</New></Item>
+<Item><Old>// 物体に加速度を掛けて円運動させる</Old><New>// 对物体施加加速度的圆周运动</New></Item>
+<Item><Old>// 回転中心からの相対位置</Old><New>// 距离旋转中心的相对位置</New></Item>
+
 <!--DirectX部分翻译-->
 <Item><Old>// 画面幅</Old><New>// 画面宽度</New></Item>
 <Item><Old>// 画面高さ</Old><New>// 画面高度</New></Item>
@@ -23,6 +91,7 @@
 <Item><Old>// 描画領域の高さ</Old><New>// 渲染区域的高度</New></Item>
 <Item><Old>// ウィンドウハンドル</Old><New>// 窗口宽度</New></Item>
 <Item><Old>// DXGIスワップチェイン</Old><New>// 渲染数据暂存</New></Item>
+<Item><Old>// ラスタライザの設定</Old><New>// 设置渲染状态</New></Item>
 <Item><Old>// ラスタライザ</Old><New>// 渲染状态</New></Item>
 <Item><Old>// レンダリングターゲット</Old><New>// 渲染目标</New></Item>
 <Item><Old>// フィーチャーレベル</Old><New>// 适配器的功能级别</New></Item>
@@ -54,6 +123,7 @@
 <Item><Old>// テクスチャ作成</Old><New>// 创建纹理</New></Item>
 <Item><Old>// 終了処理</Old><New>// 终止处理</New></Item>
 <Item><Old>// ステータスをクリア</Old><New>// 清除状态</New></Item>
+<Item><Old>// スワップチェーン</Old><New>// 渲染数据</New></Item>
 <Item><Old>// ウィンドウプロシージャ</Old><New>// 窗口处理</New></Item>
 <Item><Old>// 絵の描画待ち行列フラッシュ</Old><New>// 顺序输出等待渲染的图形矩阵</New></Item>
 <Item><Old>// 絵の描画</Old><New>// 图形的渲染</New></Item>
@@ -84,5 +154,5 @@
 <Item><Old>// 表示</Old><New>// 显示</New></Item>
 <Item><Old>// 幅</Old><New>// 宽度</New></Item>
 <Item><Old>// 高さ</Old><New>// 高度</New></Item>
-<Item><Old>// 高さ</Old><New>// 高度</New></Item>
+<Item><Old>// 時間</Old><New>// 时间</New></Item>
 </Replace>
