@@ -1,6 +1,6 @@
-//------------------------------------------------------------
+ï»¿//------------------------------------------------------------
 // Wipe_5_1a.cpp
-// ƒƒCƒp[‚Ì‚æ‚¤‚È‰æ–ÊØ‚è‘Ö‚¦i‹«ŠEƒuƒŒƒ“ƒh•t‚«j
+// ãƒ¯ã‚¤ãƒ‘ãƒ¼ã®ã‚ˆã†ãªç”»é¢åˆ‡ã‚Šæ›¿ãˆï¼ˆå¢ƒç•Œãƒ–ãƒ¬ãƒ³ãƒ‰ä»˜ãï¼‰
 // 
 //------------------------------------------------------------
 
@@ -9,14 +9,14 @@
 #include <D3Dcompiler.h>
 #include <xnamath.h>
 
-#define PI					3.14159265f			// ‰~ü—¦
-#define VIEW_WIDTH			640					// ‰æ–Ê•
-#define VIEW_HEIGHT			480					// ‰æ–Ê‚‚³
-#define GRAD_WIDTH			100					// ƒOƒ‰ƒf[ƒVƒ‡ƒ“•
-#define DRAW_R				( VIEW_WIDTH + VIEW_HEIGHT + GRAD_WIDTH * 2 )	// •`‰æ”¼Œa
+#define PI					3.14159265f			// å††å‘¨ç‡
+#define VIEW_WIDTH			640					// ç”»é¢å¹…
+#define VIEW_HEIGHT			480					// ç”»é¢é«˜ã•
+#define GRAD_WIDTH			100					// ã‚°ãƒ©ãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³å¹…
+#define DRAW_R				( VIEW_WIDTH + VIEW_HEIGHT + GRAD_WIDTH * 2 )	// æç”»åŠå¾„
 
 
-// ƒeƒNƒXƒ`ƒƒŠG\‘¢‘Ì
+// ãƒ†ã‚¯ã‚¹ãƒãƒ£çµµæ§‹é€ ä½“
 struct TEX_PICTURE {
 	ID3D11ShaderResourceView	*pSRViewTexture;
 	D3D11_TEXTURE2D_DESC		tdDesc;
@@ -24,19 +24,19 @@ struct TEX_PICTURE {
 };
 
 
-ID3D11DeviceContext		*g_pImmediateContext;	// ƒfƒoƒCƒXƒRƒ“ƒeƒLƒXƒg
+ID3D11DeviceContext		*g_pImmediateContext;	// ãƒ‡ãƒã‚¤ã‚¹ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
 ID3D11BlendState		*g_pbsAlphaBlend;
 
 
-int FlushDrawingPictures( void );				// ŠG‚Ì•`‰æ‘Ò‚¿s—ñƒtƒ‰ƒbƒVƒ…
+int FlushDrawingPictures( void );				// çµµã®æç”»å¾…ã¡è¡Œåˆ—ãƒ•ãƒ©ãƒƒã‚·ãƒ¥
 int Draw2DPolygon( float x1, float y1, float u1, float v1,
 				   float x2, float y2, float u2, float v2,
 				   float x3, float y3, float u3, float v3,
-				   TEX_PICTURE *pTexPic );		// 2Dƒ|ƒŠƒSƒ“‚Ì•`‰æ
+				   TEX_PICTURE *pTexPic );		// 2Dãƒãƒªã‚´ãƒ³ã®æç”»
 int Draw2DPolygonWithColor( float x1, float y1, float u1, float v1, int nColor1,
 							float x2, float y2, float u2, float v2, int nColor2,
 							float x3, float y3, float u3, float v3, int nColor3,
-							TEX_PICTURE *pTexPic );	// 2Dƒ|ƒŠƒSƒ“‚Ì•`‰æiF•t‚«j
+							TEX_PICTURE *pTexPic );	// 2Dãƒãƒªã‚´ãƒ³ã®æç”»ï¼ˆè‰²ä»˜ãï¼‰
 
 
 
@@ -47,30 +47,30 @@ TEX_PICTURE				g_tPic1, g_tPic2;
 
 
 
-int InitChangingPictures( void )						// Å‰‚É‚P‰ñ‚¾‚¯ŒÄ‚Î‚ê‚é
+int InitChangingPictures( void )						// æœ€åˆã«ï¼‘å›ã ã‘å‘¼ã°ã‚Œã‚‹
 {
-	fAngle1 = 0.0f;										// Šp“x‚Ì‰Šú’l
-	fAngle_v = 2.0f * PI / 300.0f;						// Šp‘¬“x‚Ì‰Šú’l
+	fAngle1 = 0.0f;										// è§’åº¦ã®åˆæœŸå€¤
+	fAngle_v = 2.0f * PI / 300.0f;						// è§’é€Ÿåº¦ã®åˆæœŸå€¤
 
 	return 0;
 }
 
 
-int DrawChangingPictures( void )						// –ˆƒtƒŒ[ƒ€ŒÄ‚Î‚ê‚é
+int DrawChangingPictures( void )						// æ¯ãƒ•ãƒ¬ãƒ¼ãƒ å‘¼ã°ã‚Œã‚‹
 {
-	float				xb1, yb1, xt1, yt1;				// ‹«ŠEü•ª‚P‚Ì“_
-	float				xb2, yb2, xt2, yt2;				// ‹«ŠEü•ª‚Q‚Ì“_
-	float				dlx, dly;						// ¶‰º‚Ì“_
-	float				urx, ury;						// ‰Eã‚Ì“_
-	float				vfx, vfy;						// ƒtƒHƒ[ƒhƒxƒNƒgƒ‹
-	float				vsx, vsy;						// ƒTƒCƒhƒxƒNƒgƒ‹
+	float				xb1, yb1, xt1, yt1;				// å¢ƒç•Œç·šåˆ†ï¼‘ã®ç‚¹
+	float				xb2, yb2, xt2, yt2;				// å¢ƒç•Œç·šåˆ†ï¼’ã®ç‚¹
+	float				dlx, dly;						// å·¦ä¸‹ã®ç‚¹
+	float				urx, ury;						// å³ä¸Šã®ç‚¹
+	float				vfx, vfy;						// ãƒ•ã‚©ãƒ¯ãƒ¼ãƒ‰ãƒ™ã‚¯ãƒˆãƒ«
+	float				vsx, vsy;						// ã‚µã‚¤ãƒ‰ãƒ™ã‚¯ãƒˆãƒ«
 
-	fAngle1 += fAngle_v;								// ‹«ŠEü‚ğ“®‚©‚·
-	if ( fAngle1 < 0.0f ) {								// Å¬Šp“x
+	fAngle1 += fAngle_v;								// å¢ƒç•Œç·šã‚’å‹•ã‹ã™
+	if ( fAngle1 < 0.0f ) {								// æœ€å°è§’åº¦
 		fAngle1 = 0.0f;
 		fAngle_v = -fAngle_v;
 	}
-	if ( fAngle1 > PI / 2.0f ) {						// Å‘åŠp“x
+	if ( fAngle1 > PI / 2.0f ) {						// æœ€å¤§è§’åº¦
 		fAngle1 = PI / 2.0f;
 		fAngle_v = -fAngle_v;
 	}
@@ -117,53 +117,53 @@ int DrawChangingPictures( void )						// –ˆƒtƒŒ[ƒ€ŒÄ‚Î‚ê‚é
 
 
 //------------------------------------------------------------
-// ˆÈ‰ºADirectX‚É‚æ‚é•\¦ƒvƒƒOƒ‰ƒ€
+// ä»¥ä¸‹ã€DirectXã«ã‚ˆã‚‹è¡¨ç¤ºãƒ—ãƒ­ã‚°ãƒ©ãƒ 
 
 #include <stdio.h>
 #include <windows.h>
-#include <tchar.h>								// UnicodeEƒ}ƒ‹ƒ`ƒoƒCƒg•¶šŠÖŒW
+#include <tchar.h>								// Unicodeãƒ»ãƒãƒ«ãƒãƒã‚¤ãƒˆæ–‡å­—é–¢ä¿‚
 
 
-#define MAX_BUFFER_VERTEX				10000	// Å‘åƒoƒbƒtƒ@’¸“_”
+#define MAX_BUFFER_VERTEX				10000	// æœ€å¤§ãƒãƒƒãƒ•ã‚¡é ‚ç‚¹æ•°
 
 
-// ƒŠƒ“ƒNƒ‰ƒCƒuƒ‰ƒŠ
-#pragma comment( lib, "d3d11.lib" )   // D3D11ƒ‰ƒCƒuƒ‰ƒŠ
+// ãƒªãƒ³ã‚¯ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+#pragma comment( lib, "d3d11.lib" )   // D3D11ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
 #pragma comment( lib, "d3dx11.lib" )
 
 
-// ƒZ[ƒtƒŠƒŠ[ƒXƒ}ƒNƒ
+// ã‚»ãƒ¼ãƒ•ãƒªãƒªãƒ¼ã‚¹ãƒã‚¯ãƒ­
 #ifndef SAFE_RELEASE
 #define SAFE_RELEASE( p )      { if ( p ) { ( p )->Release(); ( p )=NULL; } }
 #endif
 
 
-// ’¸“_\‘¢‘Ì
+// é ‚ç‚¹æ§‹é€ ä½“
 struct CUSTOMVERTEX {
     XMFLOAT4	v4Pos;
     XMFLOAT4	v4Color;
 	XMFLOAT2	v2UV;
 };
 
-// ƒVƒF[ƒ_’è”\‘¢‘Ì
+// ã‚·ã‚§ãƒ¼ãƒ€å®šæ•°æ§‹é€ ä½“
 struct CBNeverChanges
 {
     XMMATRIX mView;
 };
 
 
-// ƒOƒ[ƒoƒ‹•Ï”
-UINT  g_nClientWidth;							// •`‰æ—Ìˆæ‚Ì‰¡•
-UINT  g_nClientHeight;							// •`‰æ—Ìˆæ‚Ì‚‚³
+// ã‚°ãƒ­ãƒ¼ãƒãƒ«å¤‰æ•°
+UINT  g_nClientWidth;							// æç”»é ˜åŸŸã®æ¨ªå¹…
+UINT  g_nClientHeight;							// æç”»é ˜åŸŸã®é«˜ã•
 
-HWND        g_hWnd;         // ƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹
+HWND        g_hWnd;         // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«
 
 
-ID3D11Device			*g_pd3dDevice;			// ƒfƒoƒCƒX
-IDXGISwapChain			*g_pSwapChain;			// DXGIƒXƒƒbƒvƒ`ƒFƒCƒ“
-ID3D11RasterizerState	*g_pRS;					// ƒ‰ƒXƒ^ƒ‰ƒCƒU
-ID3D11RenderTargetView	*g_pRTV;				// ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg
-D3D_FEATURE_LEVEL       g_FeatureLevel;			// ƒtƒB[ƒ`ƒƒ[ƒŒƒxƒ‹
+ID3D11Device			*g_pd3dDevice;			// ãƒ‡ãƒã‚¤ã‚¹
+IDXGISwapChain			*g_pSwapChain;			// DXGIã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³
+ID3D11RasterizerState	*g_pRS;					// ãƒ©ã‚¹ã‚¿ãƒ©ã‚¤ã‚¶
+ID3D11RenderTargetView	*g_pRTV;				// ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ
+D3D_FEATURE_LEVEL       g_FeatureLevel;			// ãƒ•ã‚£ãƒ¼ãƒãƒ£ãƒ¼ãƒ¬ãƒ™ãƒ«
 
 ID3D11Buffer			*g_pD3D11VertexBuffer;
 ID3D11VertexShader		*g_pVertexShader;
@@ -173,13 +173,13 @@ ID3D11SamplerState		*g_pSamplerState;
 
 ID3D11Buffer			*g_pCBNeverChanges = NULL;
 
-// •`‰æ’¸“_ƒoƒbƒtƒ@
+// æç”»é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡
 CUSTOMVERTEX g_cvVertices[MAX_BUFFER_VERTEX];
 int							g_nVertexNum = 0;
 ID3D11ShaderResourceView	*g_pNowTexture = NULL;
 
 
-// Direct3D‚Ì‰Šú‰»
+// Direct3Dã®åˆæœŸåŒ–
 HRESULT InitD3D( void )
 {
     HRESULT hr = S_OK;
@@ -192,7 +192,7 @@ HRESULT InitD3D( void )
 	UINT               numLevelsRequested = 6;
 	D3D_FEATURE_LEVEL  FeatureLevelsSupported;
 
-	// ƒfƒoƒCƒXì¬
+	// ãƒ‡ãƒã‚¤ã‚¹ä½œæˆ
 	hr = D3D11CreateDevice( NULL,
 					D3D_DRIVER_TYPE_HARDWARE, 
 					NULL, 
@@ -207,7 +207,7 @@ HRESULT InitD3D( void )
 		return hr;
 	}
 
-	// ƒtƒ@ƒNƒgƒŠ‚Ìæ“¾
+	// ãƒ•ã‚¡ã‚¯ãƒˆãƒªã®å–å¾—
 	IDXGIDevice * pDXGIDevice;
 	hr = g_pd3dDevice->QueryInterface( __uuidof( IDXGIDevice ), ( void ** )&pDXGIDevice );
 	IDXGIAdapter * pDXGIAdapter;
@@ -215,7 +215,7 @@ HRESULT InitD3D( void )
 	IDXGIFactory * pIDXGIFactory;
 	pDXGIAdapter->GetParent( __uuidof( IDXGIFactory ), ( void ** )&pIDXGIFactory);
 
-	// ƒXƒƒbƒvƒ`ƒFƒCƒ“‚Ìì¬
+	// ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³ã®ä½œæˆ
     DXGI_SWAP_CHAIN_DESC	sd;
 	ZeroMemory( &sd, sizeof( sd ) );
 	sd.BufferCount = 1;
@@ -239,7 +239,7 @@ HRESULT InitD3D( void )
 		return hr;
 	}
 
-    // ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Ì¶¬
+    // ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®ç”Ÿæˆ
     ID3D11Texture2D			*pBackBuffer = NULL;
     D3D11_TEXTURE2D_DESC BackBufferSurfaceDesc;
     hr = g_pSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&pBackBuffer );
@@ -257,7 +257,7 @@ HRESULT InitD3D( void )
 
     g_pImmediateContext->OMSetRenderTargets( 1, &g_pRTV, NULL );
 
-    // ƒ‰ƒXƒ^ƒ‰ƒCƒU‚Ìİ’è
+    // ãƒ©ã‚¹ã‚¿ãƒ©ã‚¤ã‚¶ã®è¨­å®š
     D3D11_RASTERIZER_DESC drd;
 	ZeroMemory( &drd, sizeof( drd ) );
 	drd.FillMode				= D3D11_FILL_SOLID;
@@ -271,7 +271,7 @@ HRESULT InitD3D( void )
     }
     g_pImmediateContext->RSSetState( g_pRS );
 
-    // ƒrƒ…[ƒ|[ƒg‚Ìİ’è
+    // ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆã®è¨­å®š
     D3D11_VIEWPORT vp;
     vp.Width    = ( FLOAT )g_nClientWidth;
     vp.Height   = ( FLOAT )g_nClientHeight;
@@ -285,7 +285,7 @@ HRESULT InitD3D( void )
 }
 
 
-// ƒvƒƒOƒ‰ƒ}ƒuƒ‹ƒVƒF[ƒ_ì¬
+// ãƒ—ãƒ­ã‚°ãƒ©ãƒãƒ–ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ä½œæˆ
 HRESULT MakeShaders( void )
 {
     HRESULT hr;
@@ -297,7 +297,7 @@ HRESULT MakeShaders( void )
 #ifdef _DEBUG
     dwShaderFlags |= D3DCOMPILE_DEBUG;
 #endif
-    // ƒRƒ“ƒpƒCƒ‹
+    // ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«
     hr = D3DX11CompileFromFile( _T( "Basic_2D.fx" ), NULL, NULL, "VS", "vs_4_0_level_9_1",
 								dwShaderFlags, 0, NULL, &pVertexShaderBuffer, &pError, NULL );
     if ( FAILED( hr ) ) {
@@ -314,7 +314,7 @@ HRESULT MakeShaders( void )
     }
     SAFE_RELEASE( pError );
     
-    // VertexShaderì¬
+    // VertexShaderä½œæˆ
     hr = g_pd3dDevice->CreateVertexShader( pVertexShaderBuffer->GetBufferPointer(),
 										   pVertexShaderBuffer->GetBufferSize(),
 										   NULL, &g_pVertexShader );
@@ -323,7 +323,7 @@ HRESULT MakeShaders( void )
         SAFE_RELEASE( pPixelShaderBuffer );
         return hr;
     }
-    // PixelShaderì¬
+    // PixelShaderä½œæˆ
     hr = g_pd3dDevice->CreatePixelShader( pPixelShaderBuffer->GetBufferPointer(),
 										  pPixelShaderBuffer->GetBufferSize(),
 										  NULL, &g_pPixelShader );
@@ -333,14 +333,14 @@ HRESULT MakeShaders( void )
         return hr;
     }
 
-    // “ü—Íƒoƒbƒtƒ@‚Ì“ü—ÍŒ`®
+    // å…¥åŠ›ãƒãƒƒãƒ•ã‚¡ã®å…¥åŠ›å½¢å¼
     D3D11_INPUT_ELEMENT_DESC layout[] = {
         { "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
         { "COLOR",    0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
         { "TEXTURE",  0, DXGI_FORMAT_R32G32_FLOAT,       0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },
     };
 	UINT numElements = ARRAYSIZE( layout );
-	// “ü—Íƒoƒbƒtƒ@‚Ì“ü—ÍŒ`®ì¬
+	// å…¥åŠ›ãƒãƒƒãƒ•ã‚¡ã®å…¥åŠ›å½¢å¼ä½œæˆ
     hr = g_pd3dDevice->CreateInputLayout( layout, numElements,
 										  pVertexShaderBuffer->GetBufferPointer(),
 										  pVertexShaderBuffer->GetBufferSize(),
@@ -351,7 +351,7 @@ HRESULT MakeShaders( void )
         return hr;
     }
 
-    // ƒVƒF[ƒ_’è”ƒoƒbƒtƒ@ì¬
+    // ã‚·ã‚§ãƒ¼ãƒ€å®šæ•°ãƒãƒƒãƒ•ã‚¡ä½œæˆ
     D3D11_BUFFER_DESC bd;
     ZeroMemory( &bd, sizeof( bd ) );
     bd.Usage = D3D11_USAGE_DEFAULT;
@@ -362,7 +362,7 @@ HRESULT MakeShaders( void )
     if( FAILED( hr ) )
         return hr;
 
-	// •ÏŠ·s—ñ
+	// å¤‰æ›è¡Œåˆ—
     CBNeverChanges	cbNeverChanges;
 	XMMATRIX		mScreen;
     mScreen = XMMatrixIdentity();
@@ -377,7 +377,7 @@ HRESULT MakeShaders( void )
 }
 
 
-// ƒeƒNƒXƒ`ƒƒƒ[ƒh
+// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ­ãƒ¼ãƒ‰
 int LoadTexture( TCHAR *szFileName, TEX_PICTURE *pTexPic, int nWidth, int nHeight,
 				 int nTexWidth, int nTexHeight )
 {
@@ -407,12 +407,12 @@ int LoadTexture( TCHAR *szFileName, TEX_PICTURE *pTexPic, int nWidth, int nHeigh
 }
 
 
-// •`‰æƒ‚[ƒhƒIƒuƒWƒFƒNƒg‰Šú‰»
+// æç”»ãƒ¢ãƒ¼ãƒ‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆåˆæœŸåŒ–
 int InitDrawModes( void )
 {
     HRESULT				hr;
 
-	// ƒuƒŒƒ“ƒhƒXƒe[ƒg
+	// ãƒ–ãƒ¬ãƒ³ãƒ‰ã‚¹ãƒ†ãƒ¼ãƒˆ
     D3D11_BLEND_DESC BlendDesc;
 	BlendDesc.AlphaToCoverageEnable = FALSE;
 	BlendDesc.IndependentBlendEnable = FALSE;
@@ -429,7 +429,7 @@ int InitDrawModes( void )
         return hr;
     }
 
-    // ƒTƒ“ƒvƒ‰
+    // ã‚µãƒ³ãƒ—ãƒ©
     D3D11_SAMPLER_DESC samDesc;
     ZeroMemory( &samDesc, sizeof( samDesc ) );
     samDesc.Filter          = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
@@ -447,12 +447,12 @@ int InitDrawModes( void )
 }
 
 
-// ƒWƒIƒƒgƒŠ‚Ì‰Šú‰»
+// ã‚¸ã‚ªãƒ¡ãƒˆãƒªã®åˆæœŸåŒ–
 HRESULT InitGeometry( void )
 {
     HRESULT hr = S_OK;
 
-    // ’¸“_ƒoƒbƒtƒ@ì¬
+    // é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ä½œæˆ
     D3D11_BUFFER_DESC BufferDesc;
     BufferDesc.Usage                = D3D11_USAGE_DYNAMIC;
     BufferDesc.ByteWidth            = sizeof( CUSTOMVERTEX ) * MAX_BUFFER_VERTEX;
@@ -469,7 +469,7 @@ HRESULT InitGeometry( void )
         return hr;
     }
 
-	// ƒeƒNƒXƒ`ƒƒì¬
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ä½œæˆ
 	g_tPic1.pSRViewTexture =  NULL;
 	g_tPic2.pSRViewTexture =  NULL;
 	hr = LoadTexture( _T( "17.bmp" ), &g_tPic1, 640, 480, 1024, 512 );
@@ -487,7 +487,7 @@ HRESULT InitGeometry( void )
 }
 
 
-// I—¹ˆ—
+// çµ‚äº†å‡¦ç†
 int Cleanup( void )
 {
     SAFE_RELEASE( g_tPic1.pSRViewTexture );
@@ -501,30 +501,30 @@ int Cleanup( void )
     SAFE_RELEASE( g_pVertexShader );
     SAFE_RELEASE( g_pCBNeverChanges );
 
-    SAFE_RELEASE( g_pRS );									// ƒ‰ƒXƒ^ƒ‰ƒCƒU
+    SAFE_RELEASE( g_pRS );									// ãƒ©ã‚¹ã‚¿ãƒ©ã‚¤ã‚¶
 
-	// ƒXƒe[ƒ^ƒX‚ğƒNƒŠƒA
+	// ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’ã‚¯ãƒªã‚¢
 	if ( g_pImmediateContext ) {
 		g_pImmediateContext->ClearState();
 		g_pImmediateContext->Flush();
 	}
 
-    SAFE_RELEASE( g_pRTV );									// ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg
+    SAFE_RELEASE( g_pRTV );									// ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ
 
-    // ƒXƒƒbƒvƒ`ƒF[ƒ“
+    // ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ãƒ¼ãƒ³
     if ( g_pSwapChain != NULL ) {
         g_pSwapChain->SetFullscreenState( FALSE, 0 );
     }
     SAFE_RELEASE( g_pSwapChain );
 
-    SAFE_RELEASE( g_pImmediateContext );					// ƒfƒoƒCƒXƒRƒ“ƒeƒLƒXƒg
-    SAFE_RELEASE( g_pd3dDevice );							// ƒfƒoƒCƒX
+    SAFE_RELEASE( g_pImmediateContext );					// ãƒ‡ãƒã‚¤ã‚¹ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+    SAFE_RELEASE( g_pd3dDevice );							// ãƒ‡ãƒã‚¤ã‚¹
 
 	return 0;
 }
 
 
-// ƒEƒBƒ“ƒhƒEƒvƒƒV[ƒWƒƒ
+// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£
 LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 {
     switch( msg )
@@ -538,7 +538,7 @@ LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 }
 
 
-// ŠG‚Ì•`‰æ‘Ò‚¿s—ñƒtƒ‰ƒbƒVƒ…
+// çµµã®æç”»å¾…ã¡è¡Œåˆ—ãƒ•ãƒ©ãƒƒã‚·ãƒ¥
 int FlushDrawingPictures( void )
 {
 	HRESULT			hr;
@@ -560,20 +560,20 @@ int FlushDrawingPictures( void )
 }
 
 
-// 2Dƒ|ƒŠƒSƒ“‚Ì•`‰æ
+// 2Dãƒãƒªã‚´ãƒ³ã®æç”»
 int Draw2DPolygon( float x1, float y1, float u1, float v1,
 				   float x2, float y2, float u2, float v2,
 				   float x3, float y3, float u3, float v3,
 				   TEX_PICTURE *pTexPic )
 {
-	if ( g_nVertexNum > ( MAX_BUFFER_VERTEX - 3 ) ) return -1;	// ’¸“_‚ªƒoƒbƒtƒ@‚©‚ç‚ ‚Ó‚ê‚éê‡‚Í•`‰æ‚¹‚¸
+	if ( g_nVertexNum > ( MAX_BUFFER_VERTEX - 3 ) ) return -1;	// é ‚ç‚¹ãŒãƒãƒƒãƒ•ã‚¡ã‹ã‚‰ã‚ãµã‚Œã‚‹å ´åˆã¯æç”»ã›ãš
 
-	// ƒeƒNƒXƒ`ƒƒ‚ªØ‚è‘Ö‚¦‚ç‚ê‚Ä‚¢‚ê‚Î‘Ò‚¿s—ñƒtƒ‰ƒbƒVƒ…
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒåˆ‡ã‚Šæ›¿ãˆã‚‰ã‚Œã¦ã„ã‚Œã°å¾…ã¡è¡Œåˆ—ãƒ•ãƒ©ãƒƒã‚·ãƒ¥
 	if ( ( pTexPic->pSRViewTexture != g_pNowTexture ) && g_pNowTexture ) {
 		FlushDrawingPictures();
 	}
 
-	// ’¸“_ƒZƒbƒg
+	// é ‚ç‚¹ã‚»ãƒƒãƒˆ
 	g_cvVertices[g_nVertexNum + 0].v4Pos   = XMFLOAT4( x1, y1, 0.0f, 1.0f );
 	g_cvVertices[g_nVertexNum + 0].v4Color = XMFLOAT4( 1.0f, 1.0f, 1.0f, 1.0f );
 	g_cvVertices[g_nVertexNum + 0].v2UV    = XMFLOAT2( u1, v1 );
@@ -590,20 +590,20 @@ int Draw2DPolygon( float x1, float y1, float u1, float v1,
 }
 
 
-// 2Dƒ|ƒŠƒSƒ“‚Ì•`‰æiF•t‚«j
+// 2Dãƒãƒªã‚´ãƒ³ã®æç”»ï¼ˆè‰²ä»˜ãï¼‰
 int Draw2DPolygonWithColor( float x1, float y1, float u1, float v1, int nColor1,
 							float x2, float y2, float u2, float v2, int nColor2,
 							float x3, float y3, float u3, float v3, int nColor3,
 							TEX_PICTURE *pTexPic )
 {
-	if ( g_nVertexNum > ( MAX_BUFFER_VERTEX - 3 ) ) return -1;	// ’¸“_‚ªƒoƒbƒtƒ@‚©‚ç‚ ‚Ó‚ê‚éê‡‚Í•`‰æ‚¹‚¸
+	if ( g_nVertexNum > ( MAX_BUFFER_VERTEX - 3 ) ) return -1;	// é ‚ç‚¹ãŒãƒãƒƒãƒ•ã‚¡ã‹ã‚‰ã‚ãµã‚Œã‚‹å ´åˆã¯æç”»ã›ãš
 
-	// ƒeƒNƒXƒ`ƒƒ‚ªØ‚è‘Ö‚¦‚ç‚ê‚Ä‚¢‚ê‚Î‘Ò‚¿s—ñƒtƒ‰ƒbƒVƒ…
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒåˆ‡ã‚Šæ›¿ãˆã‚‰ã‚Œã¦ã„ã‚Œã°å¾…ã¡è¡Œåˆ—ãƒ•ãƒ©ãƒƒã‚·ãƒ¥
 	if ( ( pTexPic->pSRViewTexture != g_pNowTexture ) && g_pNowTexture ) {
 		FlushDrawingPictures();
 	}
 
-	// ’¸“_ƒZƒbƒg
+	// é ‚ç‚¹ã‚»ãƒƒãƒˆ
 	g_cvVertices[g_nVertexNum + 0].v4Pos   = XMFLOAT4( x1, y1, 0.0f, 1.0f );
 	g_cvVertices[g_nVertexNum + 0].v4Color = XMFLOAT4( ( float )( ( nColor1 >> 16 ) & 0xff ) / 255.0f,
 													   ( float )( ( nColor1 >>  8 ) & 0xff ) / 255.0f,
@@ -629,49 +629,49 @@ int Draw2DPolygonWithColor( float x1, float y1, float u1, float v1, int nColor1,
 }
 
 
-// ƒŒƒ“ƒ_ƒŠƒ“ƒO
+// ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°
 HRESULT Render( void )
 {
-    // ‰æ–ÊƒNƒŠƒA
+    // ç”»é¢ã‚¯ãƒªã‚¢
 	XMFLOAT4	v4Color = XMFLOAT4( 0.0f, 0.0f, 1.0f, 1.0f );
     g_pImmediateContext->ClearRenderTargetView( g_pRTV, ( float * )&v4Color );
 
-    // ƒTƒ“ƒvƒ‰Eƒ‰ƒXƒ^ƒ‰ƒCƒUƒZƒbƒg
+    // ã‚µãƒ³ãƒ—ãƒ©ãƒ»ãƒ©ã‚¹ã‚¿ãƒ©ã‚¤ã‚¶ã‚»ãƒƒãƒˆ
     g_pImmediateContext->PSSetSamplers( 0, 1, &g_pSamplerState );
     g_pImmediateContext->RSSetState( g_pRS );
     
-    // •`‰æİ’è
+    // æç”»è¨­å®š
     UINT nStrides = sizeof( CUSTOMVERTEX );
     UINT nOffsets = 0;
     g_pImmediateContext->IASetVertexBuffers( 0, 1, &g_pD3D11VertexBuffer, &nStrides, &nOffsets );
     g_pImmediateContext->IASetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST );
     g_pImmediateContext->IASetInputLayout( g_pInputLayout );
 
-    // ƒVƒF[ƒ_İ’è
+    // ã‚·ã‚§ãƒ¼ãƒ€è¨­å®š
     g_pImmediateContext->VSSetShader( g_pVertexShader, NULL, 0 );
     g_pImmediateContext->VSSetConstantBuffers( 0, 1, &g_pCBNeverChanges );
     g_pImmediateContext->PSSetShader( g_pPixelShader, NULL, 0 );
 
-    // •`‰æ
+    // æç”»
     g_pImmediateContext->OMSetBlendState( NULL, NULL, 0xFFFFFFFF );
 	DrawChangingPictures();
 
-    // •\¦
+    // è¡¨ç¤º
 	FlushDrawingPictures();
 
     return S_OK;
 }
 
 
-// ƒGƒ“ƒgƒŠƒ|ƒCƒ“ƒg
+// ã‚¨ãƒ³ãƒˆãƒªãƒã‚¤ãƒ³ãƒˆ
 int WINAPI _tWinMain( HINSTANCE hInst, HINSTANCE, LPTSTR, int )
 {
-	LARGE_INTEGER			nNowTime, nLastTime;		// Œ»İ‚Æ‚Ğ‚Æ‚Â‘O‚Ì
-	LARGE_INTEGER			nTimeFreq;					// ŠÔ’PˆÊ
+	LARGE_INTEGER			nNowTime, nLastTime;		// ç¾åœ¨ã¨ã²ã¨ã¤å‰ã®æ™‚åˆ»
+	LARGE_INTEGER			nTimeFreq;					// æ™‚é–“å˜ä½
 
-    // ‰æ–ÊƒTƒCƒY
-    g_nClientWidth  = VIEW_WIDTH;						// •
-    g_nClientHeight = VIEW_HEIGHT;						// ‚‚³
+    // ç”»é¢ã‚µã‚¤ã‚º
+    g_nClientWidth  = VIEW_WIDTH;						// å¹…
+    g_nClientHeight = VIEW_HEIGHT;						// é«˜ã•
 
 	// Register the window class
     WNDCLASSEX wc = { sizeof( WNDCLASSEX ), CS_CLASSDC, MsgProc, 0L, 0L,
@@ -692,16 +692,16 @@ int WINAPI _tWinMain( HINSTANCE hInst, HINSTANCE, LPTSTR, int )
         // Create the shaders
         if( SUCCEEDED( InitDrawModes() ) )
         {
-			if ( SUCCEEDED( InitGeometry() ) ) {					// ƒWƒIƒƒgƒŠì¬
+			if ( SUCCEEDED( InitGeometry() ) ) {					// ã‚¸ã‚ªãƒ¡ãƒˆãƒªä½œæˆ
 
 				// Show the window
 				ShowWindow( g_hWnd, SW_SHOWDEFAULT );
 				UpdateWindow( g_hWnd );
 
-				InitChangingPictures();									// ƒLƒƒƒ‰ƒNƒ^‰Šú‰»
+				InitChangingPictures();									// ã‚­ãƒ£ãƒ©ã‚¯ã‚¿åˆæœŸåŒ–
 				
-				QueryPerformanceFrequency( &nTimeFreq );			// ŠÔ’PˆÊ
-				QueryPerformanceCounter( &nLastTime );				// 1ƒtƒŒ[ƒ€‘O‰Šú‰»
+				QueryPerformanceFrequency( &nTimeFreq );			// æ™‚é–“å˜ä½
+				QueryPerformanceCounter( &nLastTime );				// 1ãƒ•ãƒ¬ãƒ¼ãƒ å‰æ™‚åˆ»åˆæœŸåŒ–
 
 				// Enter the message loop
 				MSG msg;
@@ -725,7 +725,7 @@ int WINAPI _tWinMain( HINSTANCE hInst, HINSTANCE, LPTSTR, int )
 						QueryPerformanceCounter( &nNowTime );
 					}
 					nLastTime = nNowTime;
-					g_pSwapChain->Present( 0, 0 );					// •\¦
+					g_pSwapChain->Present( 0, 0 );					// è¡¨ç¤º
 				}
 			}
         }

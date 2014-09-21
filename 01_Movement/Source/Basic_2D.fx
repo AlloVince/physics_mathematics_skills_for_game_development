@@ -1,13 +1,13 @@
-// ---------------------------------------------------------
+ï»¿// ---------------------------------------------------------
 // Basic_2D.fx
-// Simple2DƒVƒF[ƒ_
+// Simple2Dã‚·ã‚§ãƒ¼ãƒ€
 // ---------------------------------------------------------
 
 
-// ƒeƒNƒXƒ`ƒƒ
-Texture2D Tex2D : register( t0 );		// ƒeƒNƒXƒ`ƒƒ
+// ãƒ†ã‚¯ã‚¹ãƒãƒ£
+Texture2D Tex2D : register( t0 );		// ãƒ†ã‚¯ã‚¹ãƒãƒ£
 
-// ƒeƒNƒXƒ`ƒƒƒTƒ“ƒvƒ‰
+// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚µãƒ³ãƒ—ãƒ©
 SamplerState MeshTextureSampler : register( s0 )
 {
     Filter = MIN_MAG_MIP_LINEAR;
@@ -15,28 +15,28 @@ SamplerState MeshTextureSampler : register( s0 )
     AddressV = Wrap;
 };
 
-// ’è”ƒoƒbƒtƒ@
+// å®šæ•°ãƒãƒƒãƒ•ã‚¡
 cbuffer cbNeverChanges : register( b0 )
 {
     matrix View;
 };
 
 
-// VertexShader“ü—ÍŒ`®
+// VertexShaderå…¥åŠ›å½¢å¼
 struct VS_INPUT {
-    float4 v4Position	: POSITION;		// ˆÊ’u
-    float4 v4Color		: COLOR;		// F
-    float2 v2Tex		: TEXTURE;		// ƒeƒNƒXƒ`ƒƒÀ•W
+    float4 v4Position	: POSITION;		// ä½ç½®
+    float4 v4Color		: COLOR;		// è‰²
+    float2 v2Tex		: TEXTURE;		// ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™
 };
 
-// VertexShadero—ÍŒ`®
+// VertexShaderå‡ºåŠ›å½¢å¼
 struct VS_OUTPUT {
-    float4 v4Position	: SV_POSITION;	// ˆÊ’u
-    float4 v4Color		: COLOR;		// F
-    float2 v2Tex		: TEXTURE;		// ƒeƒNƒXƒ`ƒƒÀ•W
+    float4 v4Position	: SV_POSITION;	// ä½ç½®
+    float4 v4Color		: COLOR;		// è‰²
+    float2 v2Tex		: TEXTURE;		// ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™
 };
 
-// ’¸“_ƒVƒF[ƒ_
+// é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€
 VS_OUTPUT VS( VS_INPUT Input )
 {
     VS_OUTPUT	Output;
@@ -48,7 +48,7 @@ VS_OUTPUT VS( VS_INPUT Input )
     return Output;
 }
 
-// ƒsƒNƒZƒ‹ƒVƒF[ƒ_
+// ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€
 float4 PS( VS_OUTPUT Input ) : SV_TARGET {
     return Tex2D.Sample( MeshTextureSampler, Input.v2Tex ) * Input.v4Color;
 }
