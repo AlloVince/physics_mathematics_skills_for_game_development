@@ -9,14 +9,16 @@
 
 <Item><Old>// キー入力による真横への移動</Old><New>// 通过键盘输入控制物体在水平方向运动</New></Item>
 <Item><Old>// プレイヤーの速さ</Old><New>// 玩家的速度</New></Item>
+<Item><Old>// プレイヤー速さ</Old><New>// 玩家的速度</New></Item>
 <Item><Old>// 左キーが押されていれば左へ</Old><New>// 左方向键被按下时向左移动</New></Item>
 <Item><Old>// 右キーが押されていれば右へ</Old><New>// 右方向键被按下时向右移动</New></Item>
 
+<Item><Old>// キー入力による縦and横への移動(斜め移動も等速)</Old><New>// 通过键盘输入控制物体在水平及垂直方向运动（斜方向移动速度不变）</New></Item>
 <Item><Old>// キー入力による縦and横への移動</Old><New>// 通过键盘输入控制物体在水平及垂直方向运动</New></Item>
 <Item><Old>// 上キーが押されていれば上へ</Old><New>// 上方向键被按下时向上移动</New></Item>
 <Item><Old>// 下キーが押されていれば下へ</Old><New>// 下方向键被按下时向下移动</New></Item>
 
-<Item><Old>// キー入力による縦and横への移動(斜め移動も等速)</Old><New>// 通过键盘输入控制物体在水平及垂直方向运动（斜方向移动速度不变）</New></Item>
+
 
 <Item><Old>// 物体の斜め30度方向への移動</Old><New>// 让物体沿30度角方向运动</New></Item>
 <Item><Old>// 円周率</Old><New>// 圆周率</New></Item>
@@ -36,6 +38,8 @@
 <Item><Old>// 重力があるときの上への打ち上げ</Old><New>// 重力作用下的抛物运动</New></Item>
 <Item><Old>// 重力がある場合の、積分結果による軌道</Old><New>// 重力作用下基于积分计算运动轨道</New></Item>
 <Item><Old>// （この場合無意味）</Old><New>// （本程序中无意义）</New></Item>
+<Item><Old>// x方向の位置決め</Old><New>// 决定x方向的位置</New></Item>
+<Item><Old>// y方向の位置決め</Old><New>// 决定y方向的位置</New></Item>
 <Item><Old>// 物体の時刻を進める</Old><New>// 增加物体的時刻</New></Item>
 <Item><Old>// 物体の時刻</Old><New>// 物体的时刻</New></Item>
 
@@ -66,6 +70,8 @@
 <Item><Old>// 回転半径</Old><New>// 旋转半径</New></Item>
 <Item><Old>// 物体に加速度を掛けて円運動させる</Old><New>// 对物体施加加速度的圆周运动</New></Item>
 <Item><Old>// 回転中心からの相対位置</Old><New>// 距离旋转中心的相对位置</New></Item>
+<Item><Old>// 位置に速度を加える</Old><New>// 对位置加入速度</New></Item>
+<Item><Old>// 速度に加速度を加える</Old><New>// 为速度加上加速度</New></Item>
 
 <!--DirectX部分翻译-->
 <Item><Old>// 画面幅</Old><New>// 画面宽度</New></Item>
@@ -93,7 +99,6 @@
 <Item><Old>// DXGIスワップチェイン</Old><New>// 渲染数据暂存</New></Item>
 <Item><Old>// ラスタライザの設定</Old><New>// 设置渲染状态</New></Item>
 <Item><Old>// ラスタライザ</Old><New>// 渲染状态</New></Item>
-<Item><Old>// レンダリングターゲット</Old><New>// 渲染目标</New></Item>
 <Item><Old>// フィーチャーレベル</Old><New>// 适配器的功能级别</New></Item>
 <Item><Old>// 頂点バッファ</Old><New>// 顶点缓冲</New></Item>
 <Item><Old>// アルファブレンド</Old><New>// Alpha混合</New></Item>
@@ -130,7 +135,6 @@
 <Item><Old>// 頂点がバッファからあふれる場合は描画せず</Old><New>// 顶点从缓冲溢出时不渲染</New></Item>
 <Item><Old>// テクスチャが切り替えられていれば待ち行列フラッシュ</Old><New>// 纹理切换时输出图形矩阵</New></Item>
 <Item><Old>// 頂点セット</Old><New>// 顶点设置</New></Item>
-<Item><Old>// レンダリング</Old><New>// 显示到画面</New></Item>
 <Item><Old>// 画面クリア</Old><New>// 清除画面</New></Item>
 <Item><Old>// サンプラandラスタライザセット</Old><New>// 采样器初始化</New></Item>
 <Item><Old>// 描画設定</Old><New>// 渲染设置</New></Item>
@@ -146,12 +150,14 @@
 <Item><Old>// デバイスコンテキスト</Old><New>// 适配器上下文</New></Item>
 <Item><Old>// デバイス</Old><New>// 适配器</New></Item>
 <Item><Old>// レンダリングターゲット</Old><New>// 渲染目标</New></Item>
+<Item><Old>// レンダリング</Old><New>// 显示到画面</New></Item>
 <Item><Old>// ラスタライザ</Old><New>// 渲染状态</New></Item>
 <Item><Old>// サンプラ</Old><New>// 采样器</New></Item>
 <Item><Old>// 変換行列</Old><New>// 变换矩阵</New></Item>
 <Item><Old>// コンパイル</Old><New>// 编译</New></Item>
 <Item><Old>// 描画</Old><New>// 渲染</New></Item>
 <Item><Old>// 表示</Old><New>// 显示</New></Item>
+<Item><Old>// 画面サイズ</Old><New>// 画面大小</New></Item>
 <Item><Old>// 幅</Old><New>// 宽度</New></Item>
 <Item><Old>// 高さ</Old><New>// 高度</New></Item>
 <Item><Old>// 時間</Old><New>// 时间</New></Item>
