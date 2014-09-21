@@ -36,7 +36,7 @@ struct VS_OUTPUT {
     float2 v2Tex		: TEXTURE;		// テクスチャ座標
 };
 
-// 頂点シェーダ
+// 顶点着色器
 VS_OUTPUT VS( VS_INPUT Input )
 {
     VS_OUTPUT	Output;
@@ -48,7 +48,7 @@ VS_OUTPUT VS( VS_INPUT Input )
     return Output;
 }
 
-// ピクセルシェーダ
+// 像素着色器
 float4 PS( VS_OUTPUT Input ) : SV_TARGET {
     return Tex2D.Sample( MeshTextureSampler, Input.v2Tex ) * Input.v4Color;
 }

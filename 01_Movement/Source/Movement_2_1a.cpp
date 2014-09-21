@@ -1,30 +1,30 @@
 ﻿//------------------------------------------------------------
 // Movement_2_1a.cpp
-// キー入力による縦・横への移動
+// キー入力による縦and横への移動
 // 
 //------------------------------------------------------------
 
 #include <windows.h>
 
-#define VIEW_WIDTH			640					// 画面幅
-#define VIEW_HEIGHT			480					// 画面高さ
-#define CHAR_WIDTH			64					// キャラクタ幅
-#define CHAR_HEIGHT			64					// キャラクタ高さ
+#define VIEW_WIDTH			640					// 画面宽度
+#define VIEW_HEIGHT			480					// 画面高度
+#define CHAR_WIDTH			64					// 物体宽度
+#define CHAR_HEIGHT			64					// 物体高度
 #define PLAYER_VEL			10.0f				// プレイヤーの速さ
 
 float			x, y;							// 位置
 
 
-int InitCharacter( void )						// 最初に１回だけ呼ばれる
+int InitCharacter( void )						// 只在程序开始时调用一次
 {
-	x = ( float )( VIEW_WIDTH  - CHAR_WIDTH  ) / 2.0f;	// キャラクタの初期位置　①
+	x = ( float )( VIEW_WIDTH  - CHAR_WIDTH  ) / 2.0f;	// 物体的初始位置　①
 	y = ( float )( VIEW_HEIGHT - CHAR_HEIGHT ) / 2.0f;
 
 	return 0;
 }
 
 
-int MoveCharacter( void )						// 毎フレーム呼ばれる
+int MoveCharacter( void )						// 每帧调用
 {
 	// 左キーが押されていれば左へ②
 	if ( GetAsyncKeyState( VK_LEFT ) ) {
@@ -60,10 +60,10 @@ int MoveCharacter( void )						// 毎フレーム呼ばれる
 
 
 //------------------------------------------------------------
-// 以下、DirectXによる表示プログラム
+// 下面通过DirectX显示
 
 #include <stdio.h>
-#include <tchar.h>								// Unicode・マルチバイト文字関係
+#include <tchar.h>								// 处理Unicode及宽字符文本
 
 #include <D3D11.h>
 #include <D3DX11.h>
@@ -71,34 +71,34 @@ int MoveCharacter( void )						// 毎フレーム呼ばれる
 #include <xnamath.h>
 
 
-#define MAX_BUFFER_VERTEX				1000	// 最大バッファ頂点数
+#define MAX_BUFFER_VERTEX				1000	// 最大缓冲顶点数
 
 
-// リンクライブラリ
-#pragma comment( lib, "d3d11.lib" )   // D3D11ライブラリ
+// 链接库
+#pragma comment( lib, "d3d11.lib" )   // D3D11库文件
 #pragma comment( lib, "d3dx11.lib" )
 
 
-// セーフリリースマクロ
+// 安全释放宏
 #ifndef SAFE_RELEASE
 #define SAFE_RELEASE( p )      { if ( p ) { ( p )->Release(); ( p )=NULL; } }
 #endif
 
 
-// 頂点構造体
+// 顶点结构体
 struct CUSTOMVERTEX {
     XMFLOAT4	v4Pos;
     XMFLOAT4	v4Color;
 	XMFLOAT2	v2UV;
 };
 
-// シェーダ定数構造体
+// 着色器常数结构体
 struct CBNeverChanges
 {
     XMMATRIX mView;
 };
 
-// テクスチャ絵構造体
+// 图片纹理结构体
 struct TEX_PICTURE {
 	ID3D11ShaderResourceView	*pSRViewTexture;
 	D3D11_TEXTURE2D_DESC		tdDesc;
@@ -106,19 +106,19 @@ struct TEX_PICTURE {
 };
 
 
-// グローバル変数
-UINT  g_nClientWidth;							// 描画領域の横幅
-UINT  g_nClientHeight;							// 描画領域の高さ
+// 全局变量
+UINT  g_nClientWidth;							// 渲染区域的宽度
+UINT  g_nClientHeight;							// 渲染区域的高度
 
-HWND        g_hWnd;         // ウィンドウハンドル
+HWND        g_hWnd;         // 窗口宽度
 
 
-ID3D11Device			*g_pd3dDevice;			// デバイス
-IDXGISwapChain			*g_pSwapChain;			// DXGIスワップチェイン
-ID3D11DeviceContext		*g_pImmediateContext;	// デバイスコンテキスト
-ID3D11RasterizerState	*g_pRS;					// ラスタライザ
-ID3D11RenderTargetView	*g_pRTV;				// レンダリングターゲット
-D3D_FEATURE_LEVEL       g_FeatureLevel;			// フィーチャーレベル
+ID3D11Device			*g_pd3dDevice;			// 适配器
+IDXGISwapChain			*g_pSwapChain;			// 渲染数据暂存
+ID3D11DeviceContext		*g_pImmediateContext;	// 适配器上下文
+ID3D11RasterizerState	*g_pRS;					// 渲染状态
+ID3D11RenderTargetView	*g_pRTV;				// 渲染目标
+D3D_FEATURE_LEVEL       g_FeatureLevel;			// 适配器的功能级别
 
 ID3D11Buffer			*g_pD3D11VertexBuffer;
 ID3D11BlendState		*g_pbsAlphaBlend;
@@ -131,13 +131,13 @@ ID3D11Buffer			*g_pCBNeverChanges = NULL;
 
 TEX_PICTURE				g_tBall, g_tBack;
 
-// 描画頂点バッファ
+// 渲染顶点缓冲
 CUSTOMVERTEX g_cvVertices[MAX_BUFFER_VERTEX];
 int							g_nVertexNum = 0;
 ID3D11ShaderResourceView	*g_pNowTexture = NULL;
 
 
-// Direct3Dの初期化
+// Direct3D初始化
 HRESULT InitD3D( void )
 {
     HRESULT hr = S_OK;
@@ -150,7 +150,7 @@ HRESULT InitD3D( void )
 	UINT               numLevelsRequested = 6;
 	D3D_FEATURE_LEVEL  FeatureLevelsSupported;
 
-	// デバイス作成
+	// 创建适配器
 	hr = D3D11CreateDevice( NULL,
 					D3D_DRIVER_TYPE_HARDWARE, 
 					NULL, 
@@ -165,7 +165,7 @@ HRESULT InitD3D( void )
 		return hr;
 	}
 
-	// ファクトリの取得
+	// 获得工厂
 	IDXGIDevice * pDXGIDevice;
 	hr = g_pd3dDevice->QueryInterface( __uuidof( IDXGIDevice ), ( void ** )&pDXGIDevice );
 	IDXGIAdapter * pDXGIAdapter;
@@ -173,7 +173,7 @@ HRESULT InitD3D( void )
 	IDXGIFactory * pIDXGIFactory;
 	pDXGIAdapter->GetParent( __uuidof( IDXGIFactory ), ( void ** )&pIDXGIFactory);
 
-	// スワップチェインの作成
+	// 创建渲染数据
     DXGI_SWAP_CHAIN_DESC	sd;
 	ZeroMemory( &sd, sizeof( sd ) );
 	sd.BufferCount = 1;
@@ -197,7 +197,7 @@ HRESULT InitD3D( void )
 		return hr;
 	}
 
-    // レンダリングターゲットの生成
+    // 渲染目标の生成
     ID3D11Texture2D			*pBackBuffer = NULL;
     D3D11_TEXTURE2D_DESC BackBufferSurfaceDesc;
     hr = g_pSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&pBackBuffer );
@@ -215,7 +215,7 @@ HRESULT InitD3D( void )
 
     g_pImmediateContext->OMSetRenderTargets( 1, &g_pRTV, NULL );
 
-    // ラスタライザの設定
+    // 渲染状态の設定
     D3D11_RASTERIZER_DESC drd;
 	ZeroMemory( &drd, sizeof( drd ) );
 	drd.FillMode				= D3D11_FILL_SOLID;
@@ -229,7 +229,7 @@ HRESULT InitD3D( void )
     }
     g_pImmediateContext->RSSetState( g_pRS );
 
-    // ビューポートの設定
+    // 设置VIEWPORT
     D3D11_VIEWPORT vp;
     vp.Width    = ( FLOAT )g_nClientWidth;
     vp.Height   = ( FLOAT )g_nClientHeight;
@@ -243,7 +243,7 @@ HRESULT InitD3D( void )
 }
 
 
-// プログラマブルシェーダ作成
+// 创建可编程着色器
 HRESULT MakeShaders( void )
 {
     HRESULT hr;
@@ -255,7 +255,7 @@ HRESULT MakeShaders( void )
 #ifdef _DEBUG
     dwShaderFlags |= D3DCOMPILE_DEBUG;
 #endif
-    // コンパイル
+    // 编译
     hr = D3DX11CompileFromFile( _T( "Basic_2D.fx" ), NULL, NULL, "VS", "vs_4_0_level_9_1",
 								dwShaderFlags, 0, NULL, &pVertexShaderBuffer, &pError, NULL );
     if ( FAILED( hr ) ) {
@@ -272,7 +272,7 @@ HRESULT MakeShaders( void )
     }
     SAFE_RELEASE( pError );
     
-    // VertexShader作成
+    // 创建顶点着色器
     hr = g_pd3dDevice->CreateVertexShader( pVertexShaderBuffer->GetBufferPointer(),
 										   pVertexShaderBuffer->GetBufferSize(),
 										   NULL, &g_pVertexShader );
@@ -281,7 +281,7 @@ HRESULT MakeShaders( void )
         SAFE_RELEASE( pPixelShaderBuffer );
         return hr;
     }
-    // PixelShader作成
+    // 创建像素着色器
     hr = g_pd3dDevice->CreatePixelShader( pPixelShaderBuffer->GetBufferPointer(),
 										  pPixelShaderBuffer->GetBufferSize(),
 										  NULL, &g_pPixelShader );
@@ -291,14 +291,14 @@ HRESULT MakeShaders( void )
         return hr;
     }
 
-    // 入力バッファの入力形式
+    // 输入缓冲的输入形式
     D3D11_INPUT_ELEMENT_DESC layout[] = {
         { "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
         { "COLOR",    0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
         { "TEXTURE",  0, DXGI_FORMAT_R32G32_FLOAT,       0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },
     };
 	UINT numElements = ARRAYSIZE( layout );
-	// 入力バッファの入力形式作成
+	// 创建输入布局
     hr = g_pd3dDevice->CreateInputLayout( layout, numElements,
 										  pVertexShaderBuffer->GetBufferPointer(),
 										  pVertexShaderBuffer->GetBufferSize(),
@@ -309,7 +309,7 @@ HRESULT MakeShaders( void )
         return hr;
     }
 
-    // シェーダ定数バッファ作成
+    // 创建着色器常数缓冲
     D3D11_BUFFER_DESC bd;
     ZeroMemory( &bd, sizeof( bd ) );
     bd.Usage = D3D11_USAGE_DEFAULT;
@@ -320,7 +320,7 @@ HRESULT MakeShaders( void )
     if( FAILED( hr ) )
         return hr;
 
-	// 変換行列
+	// 变换矩阵
     CBNeverChanges	cbNeverChanges;
 	XMMATRIX		mScreen;
     mScreen = XMMatrixIdentity();
@@ -335,7 +335,7 @@ HRESULT MakeShaders( void )
 }
 
 
-// テクスチャロード
+// 载入纹理
 int LoadTexture( TCHAR *szFileName, TEX_PICTURE *pTexPic, int nWidth, int nHeight,
 				 int nTexWidth, int nTexHeight )
 {
@@ -365,12 +365,12 @@ int LoadTexture( TCHAR *szFileName, TEX_PICTURE *pTexPic, int nWidth, int nHeigh
 }
 
 
-// 描画モードオブジェクト初期化
+// 渲染模式对象初始化
 int InitDrawModes( void )
 {
     HRESULT				hr;
 
-	// ブレンドステート
+	// 混合状态
     D3D11_BLEND_DESC BlendDesc;
 	BlendDesc.AlphaToCoverageEnable = FALSE;
 	BlendDesc.IndependentBlendEnable = FALSE;
@@ -387,7 +387,7 @@ int InitDrawModes( void )
         return hr;
     }
 
-    // サンプラ
+    // 采样器
     D3D11_SAMPLER_DESC samDesc;
     ZeroMemory( &samDesc, sizeof( samDesc ) );
     samDesc.Filter          = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
@@ -405,12 +405,12 @@ int InitDrawModes( void )
 }
 
 
-// ジオメトリの初期化
+// 图形初始化
 HRESULT InitGeometry( void )
 {
     HRESULT hr = S_OK;
 
-    // 頂点バッファ作成
+    // 顶点缓冲作成
     D3D11_BUFFER_DESC BufferDesc;
     BufferDesc.Usage                = D3D11_USAGE_DYNAMIC;
     BufferDesc.ByteWidth            = sizeof( CUSTOMVERTEX ) * MAX_BUFFER_VERTEX;
@@ -427,7 +427,7 @@ HRESULT InitGeometry( void )
         return hr;
     }
 
-	// テクスチャ作成
+	// 创建纹理
 	g_tBall.pSRViewTexture =  NULL;
 	g_tBack.pSRViewTexture =  NULL;
 	hr = LoadTexture( _T( "1.dds" ), &g_tBall, 64, 64, 64, 64 );
@@ -445,7 +445,7 @@ HRESULT InitGeometry( void )
 }
 
 
-// 終了処理
+// 终止处理
 int Cleanup( void )
 {
     SAFE_RELEASE( g_tBall.pSRViewTexture );
@@ -459,15 +459,15 @@ int Cleanup( void )
     SAFE_RELEASE( g_pVertexShader );
     SAFE_RELEASE( g_pCBNeverChanges );
 
-    SAFE_RELEASE( g_pRS );									// ラスタライザ
+    SAFE_RELEASE( g_pRS );									// 渲染状态
 
-	// ステータスをクリア
+	// 清除状态
 	if ( g_pImmediateContext ) {
 		g_pImmediateContext->ClearState();
 		g_pImmediateContext->Flush();
 	}
 
-    SAFE_RELEASE( g_pRTV );									// レンダリングターゲット
+    SAFE_RELEASE( g_pRTV );									// 渲染目标
 
     // スワップチェーン
     if ( g_pSwapChain != NULL ) {
@@ -475,14 +475,14 @@ int Cleanup( void )
     }
     SAFE_RELEASE( g_pSwapChain );
 
-    SAFE_RELEASE( g_pImmediateContext );					// デバイスコンテキスト
-    SAFE_RELEASE( g_pd3dDevice );							// デバイス
+    SAFE_RELEASE( g_pImmediateContext );					// 适配器上下文
+    SAFE_RELEASE( g_pd3dDevice );							// 适配器
 
 	return 0;
 }
 
 
-// ウィンドウプロシージャ
+// 窗口处理
 LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 {
     switch( msg )
@@ -496,7 +496,7 @@ LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 }
 
 
-// 絵の描画待ち行列フラッシュ
+// 顺序输出等待渲染的图形矩阵
 int FlushDrawingPictures( void )
 {
 	HRESULT			hr;
@@ -518,17 +518,17 @@ int FlushDrawingPictures( void )
 }
 
 
-// 絵の描画
+// 图形的渲染
 int DrawPicture( float x, float y, TEX_PICTURE *pTexPic )
 {
-	if ( g_nVertexNum > ( MAX_BUFFER_VERTEX - 6 ) ) return -1;	// 頂点がバッファからあふれる場合は描画せず
+	if ( g_nVertexNum > ( MAX_BUFFER_VERTEX - 6 ) ) return -1;	// 顶点从缓冲溢出时不渲染
 
-	// テクスチャが切り替えられていれば待ち行列フラッシュ
+	// 纹理切换时输出图形矩阵
 	if ( ( pTexPic->pSRViewTexture != g_pNowTexture ) && g_pNowTexture ) {
 		FlushDrawingPictures();
 	}
 
-	// 頂点セット
+	// 顶点设置
 	g_cvVertices[g_nVertexNum + 0].v4Pos   = XMFLOAT4( x,                         y,                          0.0f, 1.0f );
 	g_cvVertices[g_nVertexNum + 0].v4Color = XMFLOAT4( 1.0f, 1.0f, 1.0f, 1.0f );
 	g_cvVertices[g_nVertexNum + 0].v2UV    = XMFLOAT2( 0.0f, 0.0f );
@@ -550,53 +550,53 @@ int DrawPicture( float x, float y, TEX_PICTURE *pTexPic )
 }
 
 
-// レンダリング
+// 显示到画面
 HRESULT Render( void )
 {
     HRESULT hr = S_OK;
 
-    // 画面クリア
+    // 清除画面
     float color[] = { 0.0f, 0.0f, 1.0f, 1.0f };
     g_pImmediateContext->ClearRenderTargetView( g_pRTV, color );
 
-    // サンプラ・ラスタライザセット
+    // 采样器初始化
     g_pImmediateContext->PSSetSamplers( 0, 1, &g_pSamplerState );
     g_pImmediateContext->RSSetState( g_pRS );
     
-    // 描画設定
+    // 渲染设置
     UINT nStrides = sizeof( CUSTOMVERTEX );
     UINT nOffsets = 0;
     g_pImmediateContext->IASetVertexBuffers( 0, 1, &g_pD3D11VertexBuffer, &nStrides, &nOffsets );
     g_pImmediateContext->IASetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST );
     g_pImmediateContext->IASetInputLayout( g_pInputLayout );
 
-    // シェーダ設定
+    // 着色器设置
     g_pImmediateContext->VSSetShader( g_pVertexShader, NULL, 0 );
     g_pImmediateContext->VSSetConstantBuffers( 0, 1, &g_pCBNeverChanges );
     g_pImmediateContext->PSSetShader( g_pPixelShader, NULL, 0 );
 
-    // 描画
+    // 渲染
     g_pImmediateContext->OMSetBlendState( NULL, NULL, 0xFFFFFFFF );
 	DrawPicture( 0.0f, 0.0f, &g_tBack );
     g_pImmediateContext->OMSetBlendState( g_pbsAlphaBlend, NULL, 0xFFFFFFFF );
 	DrawPicture( x, y, &g_tBall );
 
-    // 表示
+    // 显示
 	FlushDrawingPictures();
 
     return S_OK;
 }
 
 
-// エントリポイント
+// 程序入口
 int WINAPI _tWinMain( HINSTANCE hInst, HINSTANCE, LPTSTR, int )
 {
-	LARGE_INTEGER			nNowTime, nLastTime;		// 現在とひとつ前の時刻
-	LARGE_INTEGER			nTimeFreq;					// 時間単位
+	LARGE_INTEGER			nNowTime, nLastTime;		// 当前时刻及上一次的时刻
+	LARGE_INTEGER			nTimeFreq;					// 时间单位
 
     // 画面サイズ
-    g_nClientWidth  = VIEW_WIDTH;						// 幅
-    g_nClientHeight = VIEW_HEIGHT;						// 高さ
+    g_nClientWidth  = VIEW_WIDTH;						// 宽度
+    g_nClientHeight = VIEW_HEIGHT;						// 高度
 
 	// Register the window class
     WNDCLASSEX wc = { sizeof( WNDCLASSEX ), CS_CLASSDC, MsgProc, 0L, 0L,
@@ -617,16 +617,16 @@ int WINAPI _tWinMain( HINSTANCE hInst, HINSTANCE, LPTSTR, int )
         // Create the shaders
         if( SUCCEEDED( InitDrawModes() ) )
         {
-			if ( SUCCEEDED( InitGeometry() ) ) {					// ジオメトリ作成
+			if ( SUCCEEDED( InitGeometry() ) ) {					// 创建图形
 
 				// Show the window
 				ShowWindow( g_hWnd, SW_SHOWDEFAULT );
 				UpdateWindow( g_hWnd );
 
-				InitCharacter();									// キャラクタ初期化
+				InitCharacter();									// 物体初始化
 				
-				QueryPerformanceFrequency( &nTimeFreq );			// 時間単位
-				QueryPerformanceCounter( &nLastTime );				// 1フレーム前時刻初期化
+				QueryPerformanceFrequency( &nTimeFreq );			// 时间单位
+				QueryPerformanceCounter( &nLastTime );				// 初始化1帧前的时刻
 
 				// Enter the message loop
 				MSG msg;
@@ -650,7 +650,7 @@ int WINAPI _tWinMain( HINSTANCE hInst, HINSTANCE, LPTSTR, int )
 						QueryPerformanceCounter( &nNowTime );
 					}
 					nLastTime = nNowTime;
-					g_pSwapChain->Present( 0, 0 );					// 表示
+					g_pSwapChain->Present( 0, 0 );					// 显示
 				}
 			}
         }
