@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Wipe_1_1.cpp
-// 画面切り替え
+// 水平扫描式画面切换
 // 
 //------------------------------------------------------------
 
@@ -23,7 +23,7 @@ struct TEX_PICTURE {
 int Draw2DPolygon( float x1, float y1, float u1, float v1,
 				   float x2, float y2, float u2, float v2,
 				   float x3, float y3, float u3, float v3,
-				   TEX_PICTURE *pTexPic );		// 2Dポリゴンの描画
+				   TEX_PICTURE *pTexPic );		// 渲染2D多边形
 
 
 float	 fBoundary_x, fBoundary_vx;
@@ -34,8 +34,8 @@ TEX_PICTURE				g_tPic1, g_tPic2;
 
 int InitChangingPictures( void )						// 只在程序开始时调用一次
 {
-	fBoundary_x = 0.0f;									// 境界の初期位置
-	fBoundary_vx = 10.0f;								// 境界のx方向の速度
+	fBoundary_x = 0.0f;									// 边界的初始位置
+	fBoundary_vx = 10.0f;								// 边界在x方向的速度
 
 	return 0;
 }
@@ -43,7 +43,7 @@ int InitChangingPictures( void )						// 只在程序开始时调用一次
 
 int DrawChangingPictures( void )						// 每帧调用
 {
-	fBoundary_x += fBoundary_vx;						// 境界線を動かす
+	fBoundary_x += fBoundary_vx;						// 移动边界线
 	if ( fBoundary_x < 0.0f ) {							// 画面左端
 		fBoundary_x = 0.0f;
 		fBoundary_vx = -fBoundary_vx;

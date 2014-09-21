@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Wipe_4_1a.cpp
-// 円形画面切り替え（境界ブレンド付き）
+// 使用圆形进行画面切换（分界线带模糊效果）
 // 
 //------------------------------------------------------------
 
@@ -12,7 +12,7 @@
 #define PI					3.14159265f			// 圆周率
 #define VIEW_WIDTH			640					// 画面宽度
 #define VIEW_HEIGHT			480					// 画面高度
-#define GRAD_WIDTH			100					// グラデーション幅
+#define GRAD_WIDTH			100					// 模糊区域的宽度
 #define DIVIDE_NUM			50					// 分割数
 #define MIN_R				10.0f				// 最小半径
 
@@ -34,11 +34,11 @@ int DrawPicture( float x, float y, TEX_PICTURE *pTexPic );	// 图形的渲染
 int Draw2DPolygon( float x1, float y1, float u1, float v1,
 				   float x2, float y2, float u2, float v2,
 				   float x3, float y3, float u3, float v3,
-				   TEX_PICTURE *pTexPic );		// 2Dポリゴンの描画
+				   TEX_PICTURE *pTexPic );		// 渲染2D多边形
 int Draw2DPolygonWithColor( float x1, float y1, float u1, float v1, int nColor1,
 							float x2, float y2, float u2, float v2, int nColor2,
 							float x3, float y3, float u3, float v3, int nColor3,
-							TEX_PICTURE *pTexPic );	// 2Dポリゴンの描画（色付き）
+							TEX_PICTURE *pTexPic );	// 渲染2D多边形（带颜色）
 
 
 
@@ -54,7 +54,7 @@ int InitChangingPictures( void )						// 只在程序开始时调用一次
 	fBoundary_r1 = -GRAD_WIDTH + MIN_R;					// r1の初期値
 	fBoundary_r2 = fBoundary_r1 + GRAD_WIDTH;			// r2の初期値
 	fBoundary_r3 = sqrtf( VIEW_WIDTH * VIEW_WIDTH + VIEW_HEIGHT * VIEW_HEIGHT ) / 2.0f;	// r3の初期値
-	fBoundary_v = 5.0f;										// 境界の速度
+	fBoundary_v = 5.0f;										// 边界的移动速度
 
 	return 0;
 }
@@ -65,15 +65,15 @@ int DrawChangingPictures( void )						// 每帧调用
 	int					i;
 	float				fAngle1, fAngle2;
 	float				fAngleDelta;
-	float				xt[6], yt[6];					// 上側直線上の点
+	float				xt[6], yt[6];					// 上侧直线上的点
 	int					nCenterColor;
 
-	fBoundary_r1 += fBoundary_v;						// 境界線を動かす
-	if ( fBoundary_r1 < -GRAD_WIDTH + MIN_R ) {			// 最小円
+	fBoundary_r1 += fBoundary_v;						// 移动边界线
+	if ( fBoundary_r1 < -GRAD_WIDTH + MIN_R ) {			// 最小圆形
 		fBoundary_r1 = -GRAD_WIDTH + MIN_R;
 		fBoundary_v = -fBoundary_v;
 	}
-	if ( fBoundary_r1 > fBoundary_r3 ) {				// 最大円
+	if ( fBoundary_r1 > fBoundary_r3 ) {				// 最大圆形
 		fBoundary_r1 = fBoundary_r3;
 		fBoundary_v = -fBoundary_v;
 	}
@@ -624,7 +624,7 @@ int DrawPicture( float x, float y, TEX_PICTURE *pTexPic )
 }
 
 
-// 2Dポリゴンの描画
+// 渲染2D多边形
 int Draw2DPolygon( float x1, float y1, float u1, float v1,
 				   float x2, float y2, float u2, float v2,
 				   float x3, float y3, float u3, float v3,
@@ -654,7 +654,7 @@ int Draw2DPolygon( float x1, float y1, float u1, float v1,
 }
 
 
-// 2Dポリゴンの描画（色付き）
+// 渲染2D多边形（带颜色）
 int Draw2DPolygonWithColor( float x1, float y1, float u1, float v1, int nColor1,
 							float x2, float y2, float u2, float v2, int nColor2,
 							float x3, float y3, float u3, float v3, int nColor3,

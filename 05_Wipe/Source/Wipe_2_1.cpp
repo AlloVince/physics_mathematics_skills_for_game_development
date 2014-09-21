@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Wipe_2_1.cpp
-// 斜め画面切り替え
+// 斜向扫描式画面切换
 // 
 //------------------------------------------------------------
 
@@ -23,7 +23,7 @@ struct TEX_PICTURE {
 int Draw2DPolygon( float x1, float y1, float u1, float v1,
 				   float x2, float y2, float u2, float v2,
 				   float x3, float y3, float u3, float v3,
-				   TEX_PICTURE *pTexPic );		// 2Dポリゴンの描画
+				   TEX_PICTURE *pTexPic );		// 渲染2D多边形
 
 
 float	fBoundary_t;
@@ -35,8 +35,8 @@ TEX_PICTURE				g_tPic1, g_tPic2;
 
 int InitChangingPictures( void )						// 只在程序开始时调用一次
 {
-	fBoundary_t = ( float )-VIEW_WIDTH / 2.0f;				// tの初期値
-	fBoundary_v = 7.0f;										// 境界の速度
+	fBoundary_t = ( float )-VIEW_WIDTH / 2.0f;				// t的初始值
+	fBoundary_v = 7.0f;										// 边界的移动速度
 
 	return 0;
 }
@@ -45,10 +45,10 @@ int InitChangingPictures( void )						// 只在程序开始时调用一次
 int DrawChangingPictures( void )						// 每帧调用
 {
 	int					i;
-	float				xt[3], yt[3];					// 上側直線上の点
-	float				xb[3], yb[3];					// 下側直線上の点
+	float				xt[3], yt[3];					// 上侧直线上的点
+	float				xb[3], yb[3];					// 下侧直线上的点
 
-	fBoundary_t += fBoundary_v;							// 境界線を動かす
+	fBoundary_t += fBoundary_v;							// 移动边界线
 	if ( fBoundary_t < -VIEW_WIDTH / 2.0f ) {			// 画面左端
 		fBoundary_t = -VIEW_WIDTH / 2.0f;
 		fBoundary_v = -fBoundary_v;

@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Wipe_4_1.cpp
-// 円形画面切り替え
+// 使用圆形进行画面切换
 // 
 //------------------------------------------------------------
 
@@ -32,11 +32,11 @@ int FlushDrawingPictures( void );				// 顺序输出等待渲染的图形矩阵
 int Draw2DPolygon( float x1, float y1, float u1, float v1,
 				   float x2, float y2, float u2, float v2,
 				   float x3, float y3, float u3, float v3,
-				   TEX_PICTURE *pTexPic );		// 2Dポリゴンの描画
+				   TEX_PICTURE *pTexPic );		// 渲染2D多边形
 int Draw2DPolygonWithColor( float x1, float y1, float u1, float v1, int nColor1,
 							float x2, float y2, float u2, float v2, int nColor2,
 							float x3, float y3, float u3, float v3, int nColor3,
-							TEX_PICTURE *pTexPic );	// 2Dポリゴンの描画（色付き）
+							TEX_PICTURE *pTexPic );	// 渲染2D多边形（带颜色）
 
 
 
@@ -51,7 +51,7 @@ int InitChangingPictures( void )						// 只在程序开始时调用一次
 {
 	fBoundary_r1 = MIN_R;								// r1の初期値
 	fBoundary_r2 = sqrtf( VIEW_WIDTH * VIEW_WIDTH + VIEW_HEIGHT * VIEW_HEIGHT ) / 2.0f;	// r2の初期値
-	fBoundary_v = 5.0f;										// 境界の速度
+	fBoundary_v = 5.0f;										// 边界的移动速度
 
 	return 0;
 }
@@ -62,14 +62,14 @@ int DrawChangingPictures( void )						// 每帧调用
 	int					i;
 	float				fAngle1, fAngle2;
 	float				fAngleDelta;
-	float				xt[4], yt[4];					// 上側直線上の点
+	float				xt[4], yt[4];					// 上侧直线上的点
 
-	fBoundary_r1 += fBoundary_v;							// 境界線を動かす
-	if ( fBoundary_r1 < MIN_R ) {						// 最小円
+	fBoundary_r1 += fBoundary_v;							// 移动边界线
+	if ( fBoundary_r1 < MIN_R ) {						// 最小圆形
 		fBoundary_r1 = MIN_R;
 		fBoundary_v = -fBoundary_v;
 	}
-	if ( fBoundary_r1 > fBoundary_r2 ) {				// 最大円
+	if ( fBoundary_r1 > fBoundary_r2 ) {				// 最大圆形
 		fBoundary_r1 = fBoundary_r2;
 		fBoundary_v = -fBoundary_v;
 	}
@@ -549,7 +549,7 @@ int FlushDrawingPictures( void )
 }
 
 
-// 2Dポリゴンの描画
+// 渲染2D多边形
 int Draw2DPolygon( float x1, float y1, float u1, float v1,
 				   float x2, float y2, float u2, float v2,
 				   float x3, float y3, float u3, float v3,
@@ -579,7 +579,7 @@ int Draw2DPolygon( float x1, float y1, float u1, float v1,
 }
 
 
-// 2Dポリゴンの描画（色付き）
+// 渲染2D多边形（带颜色）
 int Draw2DPolygonWithColor( float x1, float y1, float u1, float v1, int nColor1,
 							float x2, float y2, float u2, float v2, int nColor2,
 							float x3, float y3, float u3, float v3, int nColor3,

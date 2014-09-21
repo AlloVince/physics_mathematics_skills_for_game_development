@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Wipe_5_1a.cpp
-// ワイパーのような画面切り替え（境界ブレンド付き）
+// 雨刷式画面切换（分界线带模糊效果）
 // 
 //------------------------------------------------------------
 
@@ -12,7 +12,7 @@
 #define PI					3.14159265f			// 圆周率
 #define VIEW_WIDTH			640					// 画面宽度
 #define VIEW_HEIGHT			480					// 画面高度
-#define GRAD_WIDTH			100					// グラデーション幅
+#define GRAD_WIDTH			100					// 模糊区域的宽度
 #define DRAW_R				( VIEW_WIDTH + VIEW_HEIGHT + GRAD_WIDTH * 2 )	// 渲染半径
 
 
@@ -32,11 +32,11 @@ int FlushDrawingPictures( void );				// 顺序输出等待渲染的图形矩阵
 int Draw2DPolygon( float x1, float y1, float u1, float v1,
 				   float x2, float y2, float u2, float v2,
 				   float x3, float y3, float u3, float v3,
-				   TEX_PICTURE *pTexPic );		// 2Dポリゴンの描画
+				   TEX_PICTURE *pTexPic );		// 渲染2D多边形
 int Draw2DPolygonWithColor( float x1, float y1, float u1, float v1, int nColor1,
 							float x2, float y2, float u2, float v2, int nColor2,
 							float x3, float y3, float u3, float v3, int nColor3,
-							TEX_PICTURE *pTexPic );	// 2Dポリゴンの描画（色付き）
+							TEX_PICTURE *pTexPic );	// 渲染2D多边形（带颜色）
 
 
 
@@ -49,8 +49,8 @@ TEX_PICTURE				g_tPic1, g_tPic2;
 
 int InitChangingPictures( void )						// 只在程序开始时调用一次
 {
-	fAngle1 = 0.0f;										// 角度の初期値
-	fAngle_v = 2.0f * PI / 300.0f;						// 角速度の初期値
+	fAngle1 = 0.0f;										// 角度的初始值
+	fAngle_v = 2.0f * PI / 300.0f;						// 角速度的初始值
 
 	return 0;
 }
@@ -58,14 +58,14 @@ int InitChangingPictures( void )						// 只在程序开始时调用一次
 
 int DrawChangingPictures( void )						// 每帧调用
 {
-	float				xb1, yb1, xt1, yt1;				// 境界線分１の点
-	float				xb2, yb2, xt2, yt2;				// 境界線分２の点
-	float				dlx, dly;						// 左下の点
-	float				urx, ury;						// 右上の点
-	float				vfx, vfy;						// フォワードベクトル
-	float				vsx, vsy;						// サイドベクトル
+	float				xb1, yb1, xt1, yt1;				// 边界线1的点
+	float				xb2, yb2, xt2, yt2;				// 边界线2的点
+	float				dlx, dly;						// 左下的点
+	float				urx, ury;						// 右上的点
+	float				vfx, vfy;						// 正方向向量
+	float				vsx, vsy;						// 正交向量
 
-	fAngle1 += fAngle_v;								// 境界線を動かす
+	fAngle1 += fAngle_v;								// 移动边界线
 	if ( fAngle1 < 0.0f ) {								// 最小角度
 		fAngle1 = 0.0f;
 		fAngle_v = -fAngle_v;
@@ -560,7 +560,7 @@ int FlushDrawingPictures( void )
 }
 
 
-// 2Dポリゴンの描画
+// 渲染2D多边形
 int Draw2DPolygon( float x1, float y1, float u1, float v1,
 				   float x2, float y2, float u2, float v2,
 				   float x3, float y3, float u3, float v3,
@@ -590,7 +590,7 @@ int Draw2DPolygon( float x1, float y1, float u1, float v1,
 }
 
 
-// 2Dポリゴンの描画（色付き）
+// 渲染2D多边形（带颜色）
 int Draw2DPolygonWithColor( float x1, float y1, float u1, float v1, int nColor1,
 							float x2, float y2, float u2, float v2, int nColor2,
 							float x3, float y3, float u3, float v3, int nColor3,

@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Wipe_3_1.cpp
-// 斜め画面切り替え（境界ブレンド付き）
+// 带模糊效果的分界线进行画面切换
 // 
 //------------------------------------------------------------
 
@@ -11,7 +11,7 @@
 
 #define VIEW_WIDTH			640					// 画面宽度
 #define VIEW_HEIGHT			480					// 画面高度
-#define GRAD_WIDTH			200					// グラデーション幅
+#define GRAD_WIDTH			200					// 模糊区域的宽度
 
 // 图片纹理结构体
 struct TEX_PICTURE {
@@ -29,11 +29,11 @@ int FlushDrawingPictures( void );				// 顺序输出等待渲染的图形矩阵
 int Draw2DPolygon( float x1, float y1, float u1, float v1,
 				   float x2, float y2, float u2, float v2,
 				   float x3, float y3, float u3, float v3,
-				   TEX_PICTURE *pTexPic );		// 2Dポリゴンの描画
+				   TEX_PICTURE *pTexPic );		// 渲染2D多边形
 int Draw2DPolygonWithColor( float x1, float y1, float u1, float v1, int nColor1,
 							float x2, float y2, float u2, float v2, int nColor2,
 							float x3, float y3, float u3, float v3, int nColor3,
-							TEX_PICTURE *pTexPic );	// 2Dポリゴンの描画（色付き）
+							TEX_PICTURE *pTexPic );	// 渲染2D多边形（带颜色）
 
 
 
@@ -46,8 +46,8 @@ TEX_PICTURE				g_tPic1, g_tPic2;
 
 int InitChangingPictures( void )						// 只在程序开始时调用一次
 {
-	fBoundary_t = ( float )-VIEW_WIDTH / 2.0f - GRAD_WIDTH;	// tの初期値
-	fBoundary_v = 7.0f;										// 境界の速度
+	fBoundary_t = ( float )-VIEW_WIDTH / 2.0f - GRAD_WIDTH;	// t的初始值
+	fBoundary_v = 7.0f;										// 边界的移动速度
 
 	return 0;
 }
@@ -56,10 +56,10 @@ int InitChangingPictures( void )						// 只在程序开始时调用一次
 int DrawChangingPictures( void )						// 每帧调用
 {
 	int					i;
-	float				xt[4], yt[4];					// 上側直線上の点
-	float				xb[4], yb[4];					// 下側直線上の点
+	float				xt[4], yt[4];					// 上侧直线上的点
+	float				xb[4], yb[4];					// 下侧直线上的点
 
-	fBoundary_t += fBoundary_v;							// 境界線を動かす
+	fBoundary_t += fBoundary_v;							// 移动边界线
 	if ( fBoundary_t < -VIEW_WIDTH / 2.0f - GRAD_WIDTH ) {	// 画面左端
 		fBoundary_t = -VIEW_WIDTH / 2.0f - GRAD_WIDTH;
 		fBoundary_v = -fBoundary_v;
@@ -557,7 +557,7 @@ int FlushDrawingPictures( void )
 }
 
 
-// 2Dポリゴンの描画
+// 渲染2D多边形
 int Draw2DPolygon( float x1, float y1, float u1, float v1,
 				   float x2, float y2, float u2, float v2,
 				   float x3, float y3, float u3, float v3,
@@ -587,7 +587,7 @@ int Draw2DPolygon( float x1, float y1, float u1, float v1,
 }
 
 
-// 2Dポリゴンの描画（色付き）
+// 渲染2D多边形（带颜色）
 int Draw2DPolygonWithColor( float x1, float y1, float u1, float v1, int nColor1,
 							float x2, float y2, float u2, float v2, int nColor2,
 							float x3, float y3, float u3, float v3, int nColor3,

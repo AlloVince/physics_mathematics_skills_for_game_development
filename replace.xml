@@ -185,6 +185,38 @@
 <Item><Old>// 方向回転スピード</Old><New>// 方向旋转速度</New></Item>
 <Item><Old>// 滑らかなホーミングレーザー</Old><New>// 更平滑的带追踪效果的激光</New></Item>
 
+<!--第5章翻译-->
+<Item><Old>// 画面切り替え</Old><New>// 水平扫描式画面切换</New></Item>
+<Item><Old>// 2Dポリゴンの描画（色付き）</Old><New>// 渲染2D多边形（带颜色）</New></Item>
+<Item><Old>// 2Dポリゴンの描画</Old><New>// 渲染2D多边形</New></Item>
+<Item><Old>// 境界の初期位置</Old><New>// 边界的初始位置</New></Item>
+<Item><Old>// 境界のx方向の速度</Old><New>// 边界在x方向的速度</New></Item>
+<Item><Old>// 境界線を動かす</Old><New>// 移动边界线</New></Item>
+
+<Item><Old>// 斜め画面切り替え（境界ブレンド付き）</Old><New>// 带模糊效果的分界线进行画面切换</New></Item>
+<Item><Old>// 斜め画面切り替え</Old><New>// 斜向扫描式画面切换</New></Item>
+<Item><Old>// tの初期値</Old><New>// t的初始值</New></Item>
+<Item><Old>// 境界の速度</Old><New>// 边界的移动速度</New></Item>
+<Item><Old>// 上側直線上の点</Old><New>// 上侧直线上的点</New></Item>
+<Item><Old>// 下側直線上の点</Old><New>// 下侧直线上的点</New></Item>
+
+<Item><Old>// グラデーション幅</Old><New>// 模糊区域的宽度</New></Item>
+
+<Item><Old>// 円形画面切り替え（境界ブレンド付き）</Old><New>// 使用圆形进行画面切换（分界线带模糊效果）</New></Item>
+<Item><Old>// 円形画面切り替え</Old><New>// 使用圆形进行画面切换</New></Item>
+<Item><Old>// 最小円</Old><New>// 最小圆形</New></Item>
+<Item><Old>// 最大円</Old><New>// 最大圆形</New></Item>
+
+<Item><Old>// ワイパーのような画面切り替え（境界ブレンド付き）</Old><New>// 雨刷式画面切换（分界线带模糊效果）</New></Item>
+<Item><Old>// ワイパーのような画面切り替え</Old><New>// 雨刷式画面切换</New></Item>
+<Item><Old>// 角度の初期値</Old><New>// 角度的初始值</New></Item>
+<Item><Old>// 角速度の初期値</Old><New>// 角速度的初始值</New></Item>
+<Item><Old>// 境界線分１の点</Old><New>// 边界线1的点</New></Item>
+<Item><Old>// 境界線分２の点</Old><New>// 边界线2的点</New></Item>
+<Item><Old>// 左下の点</Old><New>// 左下的点</New></Item>
+<Item><Old>// 右上の点</Old><New>// 右上的点</New></Item>
+<Item><Old>// フォワードベクトル</Old><New>// 正方向向量</New></Item>
+<Item><Old>// サイドベクトル</Old><New>// 正交向量</New></Item>
 
 <!--第1章特殊-->
 <Item><Old>// 右端</Old><New>// 物体碰到右端</New></Item>
@@ -298,3 +330,5 @@
 <Item><Old>// 長さ</Old><New>// 长度</New></Item>
 <Item><Old>// 外積</Old><New>// 外积</New></Item>
 </Replace>
+
+
