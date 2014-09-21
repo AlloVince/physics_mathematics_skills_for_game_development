@@ -1,45 +1,45 @@
 ﻿//------------------------------------------------------------
 // Movement_5_2.cpp
-// 物体をランダムに打ち出す(正規分布の乱数使用)
+// 物体随机飞溅运动（使用正态分布的随机数）
 // 
 //------------------------------------------------------------
 
 #include <stdlib.h>
 #include <math.h>
 
-#define PI					3.14159265f			// 円周率
+#define PI					3.14159265f			// 圆周率
 #define VIEW_WIDTH			640					// 画面宽度
 #define VIEW_HEIGHT			480					// 画面高度
 #define CHAR_WIDTH			64					// 物体宽度
 #define CHAR_HEIGHT			64					// 物体高度
-#define MAX_BALL_NUM		100					// 最大球数
-#define VEL_WIDTH			3.0f				// 横方向速度幅(標準偏差)
-#define VEL_HEIGHT			1.5f				// 縦方向速度幅(標準偏差)
-#define BASE_VEL			17.0f				// 基礎速度
+#define MAX_BALL_NUM		100					// 球的最大数量
+#define VEL_WIDTH			3.0f				// 水平方向单位速度（标准差）
+#define VEL_HEIGHT			1.5f				// 垂直方向单位速度（标准差）
+#define BASE_VEL			17.0f				// 基础速度
 #define GR					0.5f				// 重力加速度
 
 
 struct BALL {
-	int				bAvctive;					// 有効かどうか
+	int				bAvctive;					// 是否有效
 	float			x, y;						// 位置
 	float			vx, vy;						// 速度
 };
 
 
-BALL				Balls[MAX_BALL_NUM];		// 球バッファ
-int					nBallNum;					// 球の数
+BALL				Balls[MAX_BALL_NUM];		// 球的缓冲
+int					nBallNum;					// 球的数量
 
-int					nTimeCount;					// フレーム時間
+int					nTimeCount;					// 时间计数
 
 
 int InitCharacter( void )						// 只在程序开始时调用一次
 {
 	int					i;
-	// 全ての球を無効に
+	// 将所有的球设置为无效
 	for ( i = 0; i < MAX_BALL_NUM; i++ ) {
 		Balls[i].bAvctive = false;
 	}
-	nBallNum = 0;								// 弾の数はゼロ
+	nBallNum = 0;								// 飞溅的数量为0
 
 	nTimeCount = 0;
 
@@ -52,7 +52,7 @@ int MoveCharacter( void )						// 每帧调用
 	int					i;
 	float				fRand_r, fRand_t;
 
-	// 球の移動
+	// 球的移动
 	for ( i = 0; i < MAX_BALL_NUM; i++ ) {
 		if ( Balls[i].bAvctive ) {
 			Balls[i].x  += Balls[i].vx;
@@ -66,7 +66,7 @@ int MoveCharacter( void )						// 每帧调用
 		}
 	}
 
-	// 球の発生
+	// 球的产生
 	if ( ( nTimeCount % 2 ) == 0 ) {
 		for ( i = 0; i < MAX_BALL_NUM; i++ ) {
 			if ( Balls[i].bAvctive == false ) {
@@ -75,8 +75,8 @@ int MoveCharacter( void )						// 每帧调用
 				Balls[i].y = VIEW_HEIGHT - CHAR_HEIGHT;
 				fRand_r = sqrtf( -2.0f * logf( ( float )( rand() + 1 ) / ( RAND_MAX + 1 ) ) );	// √-2ln(a)
 				fRand_t = 2.0f * PI * ( float )rand() / RAND_MAX;								// 2πb
-				Balls[i].vx = ( fRand_r * cosf( fRand_t ) ) * VEL_WIDTH;				// Vxをランダム設定
-				Balls[i].vy = ( fRand_r * sinf( fRand_t ) ) * VEL_HEIGHT - BASE_VEL;	// Vyをランダム設定
+				Balls[i].vx = ( fRand_r * cosf( fRand_t ) ) * VEL_WIDTH;				// 随机设置Vx的初始值
+				Balls[i].vy = ( fRand_r * sinf( fRand_t ) ) * VEL_HEIGHT - BASE_VEL;	// 随机设置Vy的初始值
 				break;
 			}
 		}
@@ -226,7 +226,7 @@ HRESULT InitD3D( void )
 		return hr;
 	}
 
-    // 渲染目标の生成
+    // 生成渲染目标
     ID3D11Texture2D			*pBackBuffer = NULL;
     D3D11_TEXTURE2D_DESC BackBufferSurfaceDesc;
     hr = g_pSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&pBackBuffer );
@@ -244,7 +244,7 @@ HRESULT InitD3D( void )
 
     g_pImmediateContext->OMSetRenderTargets( 1, &g_pRTV, NULL );
 
-    // 渲染状态の設定
+    // 设置渲染状态
     D3D11_RASTERIZER_DESC drd;
 	ZeroMemory( &drd, sizeof( drd ) );
 	drd.FillMode				= D3D11_FILL_SOLID;
@@ -498,7 +498,7 @@ int Cleanup( void )
 
     SAFE_RELEASE( g_pRTV );									// 渲染目标
 
-    // スワップチェーン
+    // 渲染数据
     if ( g_pSwapChain != NULL ) {
         g_pSwapChain->SetFullscreenState( FALSE, 0 );
     }
@@ -628,7 +628,7 @@ int WINAPI _tWinMain( HINSTANCE hInst, HINSTANCE, LPTSTR, int )
 	LARGE_INTEGER			nNowTime, nLastTime;		// 当前时刻及上一次的时刻
 	LARGE_INTEGER			nTimeFreq;					// 时间单位
 
-    // 画面サイズ
+    // 画面大小
     g_nClientWidth  = VIEW_WIDTH;						// 宽度
     g_nClientHeight = VIEW_HEIGHT;						// 高度
 

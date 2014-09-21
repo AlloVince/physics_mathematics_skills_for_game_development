@@ -1,13 +1,13 @@
 ﻿//------------------------------------------------------------
 // Movement_4_1a.cpp
-// 重力があるときの上への打ち上げ
+// 重力作用下的抛物运动
 // 
 //------------------------------------------------------------
 
 
 #define VIEW_WIDTH			640					// 画面宽度
 #define VIEW_HEIGHT			480					// 画面高度
-#define PLAYER_VEL			10.0f				// プレイヤーの速さ
+#define PLAYER_VEL			10.0f				// 玩家的速度
 #define GR					0.4f				// 重力加速度
 
 float			x,  y;							// 位置
@@ -18,8 +18,8 @@ int InitCharacter( void )						// 只在程序开始时调用一次
 {
 	x = 0.0f;
 	vx = PLAYER_VEL;
-	y = 200.0f;									// y方向の初期位置
-	vy = -10.0f;								// y方向の初速
+	y = 200.0f;									// y方向的初始位置
+	vy = -10.0f;								// y方向的初始速度
 
 	return 0;
 }
@@ -28,8 +28,8 @@ int InitCharacter( void )						// 只在程序开始时调用一次
 int MoveCharacter( void )						// 每帧调用
 {
 	x += vx;
-	y += vy;									// 位置に速度を足す
-	vy += GR;									// 速度に加速度を足す
+	y += vy;									// 对位置加入速度
+	vy += GR;									// 为速度加上加速度
 
 	if ( ( x > VIEW_WIDTH  ) || ( y > VIEW_HEIGHT ) )
 	{
@@ -179,7 +179,7 @@ HRESULT InitD3D( void )
 		return hr;
 	}
 
-    // 渲染目标の生成
+    // 生成渲染目标
     ID3D11Texture2D			*pBackBuffer = NULL;
     D3D11_TEXTURE2D_DESC BackBufferSurfaceDesc;
     hr = g_pSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&pBackBuffer );
@@ -197,7 +197,7 @@ HRESULT InitD3D( void )
 
     g_pImmediateContext->OMSetRenderTargets( 1, &g_pRTV, NULL );
 
-    // 渲染状态の設定
+    // 设置渲染状态
     D3D11_RASTERIZER_DESC drd;
 	ZeroMemory( &drd, sizeof( drd ) );
 	drd.FillMode				= D3D11_FILL_SOLID;
@@ -451,7 +451,7 @@ int Cleanup( void )
 
     SAFE_RELEASE( g_pRTV );									// 渲染目标
 
-    // スワップチェーン
+    // 渲染数据
     if ( g_pSwapChain != NULL ) {
         g_pSwapChain->SetFullscreenState( FALSE, 0 );
     }
@@ -576,7 +576,7 @@ int WINAPI _tWinMain( HINSTANCE hInst, HINSTANCE, LPTSTR, int )
 	LARGE_INTEGER			nNowTime, nLastTime;		// 当前时刻及上一次的时刻
 	LARGE_INTEGER			nTimeFreq;					// 时间单位
 
-    // 画面サイズ
+    // 画面大小
     g_nClientWidth  = VIEW_WIDTH;						// 宽度
     g_nClientHeight = VIEW_HEIGHT;						// 高度
 

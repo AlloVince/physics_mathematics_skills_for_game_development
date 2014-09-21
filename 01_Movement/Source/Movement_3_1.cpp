@@ -1,17 +1,17 @@
 ﻿//------------------------------------------------------------
 // Movement_3_1.cpp
-// 物体の斜め30度方向への移動
+// 让物体沿30度角方向运动
 // 
 //------------------------------------------------------------
 
 #include <math.h>
 
-#define PI					3.14159265f			// 円周率
+#define PI					3.14159265f			// 圆周率
 #define VIEW_WIDTH			640					// 画面宽度
 #define VIEW_HEIGHT			480					// 画面高度
 #define CHAR_WIDTH			64					// 物体宽度
 #define CHAR_HEIGHT			64					// 物体高度
-#define PLAYER_VEL			6.0f				// プレイヤー速さ
+#define PLAYER_VEL			6.0f				// 玩家的速度
 
 float			x, y;
 float			vx, vy;
@@ -23,7 +23,7 @@ int InitCharacter( void )						// 只在程序开始时调用一次
 	x = ( float )( VIEW_WIDTH  - CHAR_WIDTH  ) / 2.0f;	// 初期位置
 	y = ( float )( VIEW_HEIGHT - CHAR_HEIGHT ) / 2.0f;
 	fAngle = PI / 6.0f;
-	vx = PLAYER_VEL * cosf( fAngle );			// 初速の設定
+	vx = PLAYER_VEL * cosf( fAngle );			// 设置初始速度
 	vy = PLAYER_VEL * sinf( fAngle );
 
 	return 0;
@@ -32,10 +32,10 @@ int InitCharacter( void )						// 只在程序开始时调用一次
 
 int MoveCharacter( void )						// 每帧调用
 {
-	x += vx;									// 実際に動かす
+	x += vx;									// 实际运动
 	y += vy;
 	
-	// 画面外にはみ出たら初期位置に戻す
+	// 运动到画面外时回到初始位置
 	if ( ( x < -CHAR_WIDTH )  || ( x > VIEW_WIDTH  ) ||
 		 ( y < -CHAR_HEIGHT ) || ( y > VIEW_HEIGHT ) )
 	{
@@ -186,7 +186,7 @@ HRESULT InitD3D( void )
 		return hr;
 	}
 
-    // 渲染目标の生成
+    // 生成渲染目标
     ID3D11Texture2D			*pBackBuffer = NULL;
     D3D11_TEXTURE2D_DESC BackBufferSurfaceDesc;
     hr = g_pSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&pBackBuffer );
@@ -204,7 +204,7 @@ HRESULT InitD3D( void )
 
     g_pImmediateContext->OMSetRenderTargets( 1, &g_pRTV, NULL );
 
-    // 渲染状态の設定
+    // 设置渲染状态
     D3D11_RASTERIZER_DESC drd;
 	ZeroMemory( &drd, sizeof( drd ) );
 	drd.FillMode				= D3D11_FILL_SOLID;
@@ -458,7 +458,7 @@ int Cleanup( void )
 
     SAFE_RELEASE( g_pRTV );									// 渲染目标
 
-    // スワップチェーン
+    // 渲染数据
     if ( g_pSwapChain != NULL ) {
         g_pSwapChain->SetFullscreenState( FALSE, 0 );
     }
@@ -583,7 +583,7 @@ int WINAPI _tWinMain( HINSTANCE hInst, HINSTANCE, LPTSTR, int )
 	LARGE_INTEGER			nNowTime, nLastTime;		// 当前时刻及上一次的时刻
 	LARGE_INTEGER			nTimeFreq;					// 时间单位
 
-    // 画面サイズ
+    // 画面大小
     g_nClientWidth  = VIEW_WIDTH;						// 宽度
     g_nClientHeight = VIEW_HEIGHT;						// 高度
 

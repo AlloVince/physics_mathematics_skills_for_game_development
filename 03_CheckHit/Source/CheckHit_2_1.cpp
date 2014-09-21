@@ -6,7 +6,7 @@
 
 #include <windows.h>
 
-#define PI					3.14159265f			// 円周率
+#define PI					3.14159265f			// 圆周率
 #define VIEW_WIDTH			640					// 画面宽度
 #define VIEW_HEIGHT			480					// 画面高度
 #define CIRCLE_VEL			5.0f				// 円形速さ
@@ -54,22 +54,22 @@ int MoveRect( void )						// キー入力で矩形Ａを移動
 {
 //	float			fVelocity;
 
-	// 左キーが押されていれば左へ
+	// 左方向键被按下时向左移动
 	if ( GetAsyncKeyState( VK_LEFT ) ) {
 		crCircleA.x -= CIRCLE_VEL;
 		if ( crCircleA.x < 0.0f ) crCircleA.x = 0.0f;
 	}
-	// 右キーが押されていれば右へ
+	// 右方向键被按下时向右移动
 	if ( GetAsyncKeyState( VK_RIGHT ) ) {
 		crCircleA.x += CIRCLE_VEL;
 		if ( crCircleA.x > VIEW_WIDTH ) crCircleA.x = VIEW_WIDTH;
 	}
-	// 上キーが押されていれば上へ
+	// 上方向键被按下时向上移动
 	if ( GetAsyncKeyState( VK_UP ) ) {
 		crCircleA.y -= CIRCLE_VEL;
 		if ( crCircleA.y < 0.0f ) crCircleA.y = 0.0f;
 	}
-	// 下キーが押されていれば下へ
+	// 下方向键被按下时向下移动
 	if ( GetAsyncKeyState( VK_DOWN ) ) {
 		crCircleA.y += CIRCLE_VEL;
 		if ( crCircleA.y > VIEW_HEIGHT ) crCircleA.y = VIEW_HEIGHT;
@@ -219,7 +219,7 @@ HRESULT InitD3D( void )
 		return hr;
 	}
 
-    // 渲染目标の生成
+    // 生成渲染目标
     ID3D11Texture2D			*pBackBuffer = NULL;
     D3D11_TEXTURE2D_DESC BackBufferSurfaceDesc;
     hr = g_pSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&pBackBuffer );
@@ -237,7 +237,7 @@ HRESULT InitD3D( void )
 
     g_pImmediateContext->OMSetRenderTargets( 1, &g_pRTV, NULL );
 
-    // 渲染状态の設定
+    // 设置渲染状态
     D3D11_RASTERIZER_DESC drd;
 	ZeroMemory( &drd, sizeof( drd ) );
 	drd.FillMode				= D3D11_FILL_SOLID;
@@ -497,7 +497,7 @@ int Cleanup( void )
 
     SAFE_RELEASE( g_pRTV );									// 渲染目标
 
-    // スワップチェーン
+    // 渲染数据
     if ( g_pSwapChain != NULL ) {
         g_pSwapChain->SetFullscreenState( FALSE, 0 );
     }
@@ -676,7 +676,7 @@ int WINAPI _tWinMain( HINSTANCE hInst, HINSTANCE, LPTSTR, int )
 	LARGE_INTEGER			nNowTime, nLastTime;		// 当前时刻及上一次的时刻
 	LARGE_INTEGER			nTimeFreq;					// 时间单位
 
-    // 画面サイズ
+    // 画面大小
     g_nClientWidth  = VIEW_WIDTH;						// 宽度
     g_nClientHeight = VIEW_HEIGHT;						// 高度
 

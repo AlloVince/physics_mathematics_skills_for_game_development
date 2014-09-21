@@ -1,13 +1,13 @@
 ﻿//------------------------------------------------------------
 // Movement_4_1b.cpp
-// 重力がある場合の、積分結果による軌道
+// 重力作用下基于积分计算运动轨道
 // 
 //------------------------------------------------------------
 
 
 #define VIEW_WIDTH			640					// 画面宽度
 #define VIEW_HEIGHT			480					// 画面高度
-#define PLAYER_VEL			10.0f				// プレイヤーの速さ
+#define PLAYER_VEL			10.0f				// 玩家的速度
 #define GR					0.4f				// 重力加速度
 
 float			x,  y;							// 位置
@@ -16,10 +16,10 @@ float			vx, vy;							// 速度
 
 int InitCharacter( void )						// 只在程序开始时调用一次
 {
-	x = 0.0f;									// （この場合無意味）
+	x = 0.0f;									// （本程序中无意义）
 	vx = PLAYER_VEL;
-	y = 200.0f;									// y方向の初期位置（この場合無意味）
-	vy = -10.0f;								// y方向の初速
+	y = 200.0f;									// y方向的初始位置（本程序中无意义）
+	vy = -10.0f;								// y方向的初始速度
 
 	return 0;
 }
@@ -27,11 +27,11 @@ int InitCharacter( void )						// 只在程序开始时调用一次
 
 int MoveCharacter( void )						// 每帧调用
 {
-	static int		t = 0;						// 物体の時刻
+	static int		t = 0;						// 物体的时刻
 
-	x = vx * t;									// x方向の位置決め
-	y = 0.5f * GR * t * t + vy * t + 200.0f;	// y方向の位置決め
-	t++;										// 物体の時刻を進める
+	x = vx * t;									// 决定x方向的位置
+	y = 0.5f * GR * t * t + vy * t + 200.0f;	// 决定y方向的位置
+	t++;										// 增加物体的時刻
 
 	if ( ( x > VIEW_WIDTH  ) || ( y > VIEW_HEIGHT ) )
 	{
@@ -181,7 +181,7 @@ HRESULT InitD3D( void )
 		return hr;
 	}
 
-    // 渲染目标の生成
+    // 生成渲染目标
     ID3D11Texture2D			*pBackBuffer = NULL;
     D3D11_TEXTURE2D_DESC BackBufferSurfaceDesc;
     hr = g_pSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&pBackBuffer );
@@ -199,7 +199,7 @@ HRESULT InitD3D( void )
 
     g_pImmediateContext->OMSetRenderTargets( 1, &g_pRTV, NULL );
 
-    // 渲染状态の設定
+    // 设置渲染状态
     D3D11_RASTERIZER_DESC drd;
 	ZeroMemory( &drd, sizeof( drd ) );
 	drd.FillMode				= D3D11_FILL_SOLID;
@@ -453,7 +453,7 @@ int Cleanup( void )
 
     SAFE_RELEASE( g_pRTV );									// 渲染目标
 
-    // スワップチェーン
+    // 渲染数据
     if ( g_pSwapChain != NULL ) {
         g_pSwapChain->SetFullscreenState( FALSE, 0 );
     }
@@ -578,7 +578,7 @@ int WINAPI _tWinMain( HINSTANCE hInst, HINSTANCE, LPTSTR, int )
 	LARGE_INTEGER			nNowTime, nLastTime;		// 当前时刻及上一次的时刻
 	LARGE_INTEGER			nTimeFreq;					// 时间单位
 
-    // 画面サイズ
+    // 画面大小
     g_nClientWidth  = VIEW_WIDTH;						// 宽度
     g_nClientHeight = VIEW_HEIGHT;						// 高度
 

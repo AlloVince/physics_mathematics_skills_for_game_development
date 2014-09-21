@@ -30,14 +30,14 @@ int InitBack( void )							// 只在程序开始时调用一次
 
 int MoveChara( void )							// 每帧调用
 {
-	// 左キーが押されていれば左へ②
+	// 左方向键被按下时向左移动②
 	if ( GetAsyncKeyState( VK_LEFT ) ) {
 		fChara_sx -= CHARA_VEL;
 		if ( fChara_sx < 0.0f ) {
 			fChara_sx = 0.0f;
 		}
 	}
-	// 右キーが押されていれば右へ③
+	// 右方向键被按下时向右移动③
 	if ( GetAsyncKeyState( VK_RIGHT ) ) {
 		fChara_sx += CHARA_VEL;
 		if ( fChara_sx > ( float )PICTURE_WIDTH ) {
@@ -199,7 +199,7 @@ HRESULT InitD3D( void )
 		return hr;
 	}
 
-    // 渲染目标の生成
+    // 生成渲染目标
     ID3D11Texture2D			*pBackBuffer = NULL;
     D3D11_TEXTURE2D_DESC BackBufferSurfaceDesc;
     hr = g_pSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&pBackBuffer );
@@ -217,7 +217,7 @@ HRESULT InitD3D( void )
 
     g_pImmediateContext->OMSetRenderTargets( 1, &g_pRTV, NULL );
 
-    // 渲染状态の設定
+    // 设置渲染状态
     D3D11_RASTERIZER_DESC drd;
 	ZeroMemory( &drd, sizeof( drd ) );
 	drd.FillMode				= D3D11_FILL_SOLID;
@@ -482,7 +482,7 @@ int Cleanup( void )
 
     SAFE_RELEASE( g_pRTV );									// 渲染目标
 
-    // スワップチェーン
+    // 渲染数据
     if ( g_pSwapChain != NULL ) {
         g_pSwapChain->SetFullscreenState( FALSE, 0 );
     }
@@ -606,7 +606,7 @@ int WINAPI _tWinMain( HINSTANCE hInst, HINSTANCE, LPTSTR, int )
 	LARGE_INTEGER			nNowTime, nLastTime;		// 当前时刻及上一次的时刻
 	LARGE_INTEGER			nTimeFreq;					// 时间单位
 
-    // 画面サイズ
+    // 画面大小
     g_nClientWidth  = VIEW_WIDTH;						// 宽度
     g_nClientHeight = VIEW_HEIGHT;						// 高度
 

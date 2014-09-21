@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Movement_1_1b.cpp
-// 物体の真横への移動(はね返り付き)
+// 让物体沿水平方向运动（物体碰到画面边缘时折回）
 // 
 //------------------------------------------------------------
 
@@ -26,13 +26,13 @@ int MoveCharacter( void )						// 每帧调用
 {
 	x += v;										// 实际移动物体
 
-	if ( x > VIEW_WIDTH - CHAR_WIDTH ) {		// 右端　②
-		v = -v;									// はね返る　③
-		x = VIEW_WIDTH - CHAR_WIDTH;			// ちょうど壁の位置へ　④
+	if ( x > VIEW_WIDTH - CHAR_WIDTH ) {		// 物体碰到右端　②
+		v = -v;									// 弹回　③
+		x = VIEW_WIDTH - CHAR_WIDTH;			// 重设坐标为画面边缘　④
 	}
-	if ( x < 0 ) {								// 左端
-		v = -v;									// はね返る
-		x = 0;									// ちょうど壁の位置へ
+	if ( x < 0 ) {								// 物体碰到左端
+		v = -v;									// 弹回
+		x = 0;									// 重设坐标为画面边缘
 	}
 
 	return 0;
@@ -177,7 +177,7 @@ HRESULT InitD3D( void )
 		return hr;
 	}
 
-    // 渲染目标の生成
+    // 生成渲染目标
     ID3D11Texture2D			*pBackBuffer = NULL;
     D3D11_TEXTURE2D_DESC BackBufferSurfaceDesc;
     hr = g_pSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&pBackBuffer );
@@ -195,7 +195,7 @@ HRESULT InitD3D( void )
 
     g_pImmediateContext->OMSetRenderTargets( 1, &g_pRTV, NULL );
 
-    // 渲染状态の設定
+    // 设置渲染状态
     D3D11_RASTERIZER_DESC drd;
 	ZeroMemory( &drd, sizeof( drd ) );
 	drd.FillMode				= D3D11_FILL_SOLID;
@@ -449,7 +449,7 @@ int Cleanup( void )
 
     SAFE_RELEASE( g_pRTV );									// 渲染目标
 
-    // スワップチェーン
+    // 渲染数据
     if ( g_pSwapChain != NULL ) {
         g_pSwapChain->SetFullscreenState( FALSE, 0 );
     }
@@ -572,7 +572,7 @@ int WINAPI _tWinMain( HINSTANCE hInst, HINSTANCE, LPTSTR, int )
 	LARGE_INTEGER			nNowTime, nLastTime;		// 当前时刻及上一次的时刻
 	LARGE_INTEGER			nTimeFreq;					// 时间单位
 
-    // 画面サイズ
+    // 画面大小
     g_nClientWidth  = VIEW_WIDTH;						// 宽度
     g_nClientHeight = VIEW_HEIGHT;						// 高度
 

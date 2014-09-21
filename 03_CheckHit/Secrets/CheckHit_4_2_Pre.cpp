@@ -813,3 +813,4 @@ int WINAPI _tWinMain( HINSTANCE hInst, HINSTANCE, LPTSTR, int )
     UnregisterClass( _T( "D3D Sample" ), wc.hInstance );
     return 0;
 }
+
