@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // CheckHit_4_1.cpp
-// 円と扇形の当たり判定
+// 圆形与扇形的碰撞检测
 // 
 //------------------------------------------------------------
 
@@ -10,7 +10,7 @@
 #define PI					3.14159265f			// 圆周率
 #define VIEW_WIDTH			640					// 画面宽度
 #define VIEW_HEIGHT			480					// 画面高度
-#define CIRCLE_VEL			5.0f				// 円形速さ
+#define CIRCLE_VEL			5.0f				// 圆形速度
 
 
 struct F_CIRCLE {
@@ -20,14 +20,14 @@ struct F_CIRCLE {
 
 struct F_FAN {
 	float			x, y;				// 中心位置
-	float			vx1, vy1;			// ベクトル1
-	float			vx2, vy2;			// ベクトル2
-	float			fAngle1, fAngle2;	// 各ベクトルの角度
+	float			vx1, vy1;			// 向量1
+	float			vx2, vy2;			// 向量2
+	float			fAngle1, fAngle2;	// 各向量的角度
 	float			r;					// 半径
 };
 
 
-F_CIRCLE			crCircleA;			// 円形Ａ
+F_CIRCLE			crCircleA;			// 圆形Ａ
 F_FAN				faFanB;				// 扇形Ｂ
 
 
@@ -46,14 +46,14 @@ int InitShapes( void )						// 只在程序开始时调用一次
 }
 
 
-int CheckHit( F_CIRCLE *pcrCircle, F_FAN *pfaFan )		// 当たりチェック
+int CheckHit( F_CIRCLE *pcrCircle, F_FAN *pfaFan )		// 碰撞检测
 {
 	int				nResult = false;
 
-	float			dx, dy;							// 位置の差分
+	float			dx, dy;							// 位置坐标之差
 	float			fAlpha, fBeta;
 	float			fDelta;
-	float			ar;								// 2半径を足したもの
+	float			ar;								// 两圆半径之和
 	float			fDistSqr;
 	float			a, b, c;
 	float			d;
@@ -102,7 +102,7 @@ int CheckHit( F_CIRCLE *pcrCircle, F_FAN *pfaFan )		// 当たりチェック
 }
 
 
-int MoveRect( void )						// キー入力で矩形Ａを移動
+int MoveRect( void )						// 通过键盘输入移动矩形A
 {
 //	float			fVelocity;
 
@@ -630,7 +630,7 @@ int DrawPicture( float x, float y, TEX_PICTURE *pTexPic )
 }
 
 
-// 絵の円形描画(色付き)
+// 渲染圆形图形（带颜色）
 int DrawCircleWithColor( float x, float y, float r, TEX_PICTURE *pTexPic, int nColor )
 {
 	int				i;
@@ -646,7 +646,7 @@ int DrawCircleWithColor( float x, float y, float r, TEX_PICTURE *pTexPic, int nC
 		FlushDrawingPictures();
 	}
 
-	// 色抽出
+	// 颜色抽出
 	fRed   = ( float )( ( nColor >> 16 ) & 0xff ) / 255.0f;
 	fGreen = ( float )( ( nColor >>  8 ) & 0xff ) / 255.0f;
 	fBlue  = ( float )(   nColor         & 0xff ) / 255.0f;
@@ -692,7 +692,7 @@ int DrawFanWithColor( float x, float y, float r, float fStartfAngle, float fEndA
 		FlushDrawingPictures();
 	}
 
-	// 色抽出
+	// 颜色抽出
 	fRed   = ( float )( ( nColor >> 16 ) & 0xff ) / 255.0f;
 	fGreen = ( float )( ( nColor >>  8 ) & 0xff ) / 255.0f;
 	fBlue  = ( float )(   nColor         & 0xff ) / 255.0f;

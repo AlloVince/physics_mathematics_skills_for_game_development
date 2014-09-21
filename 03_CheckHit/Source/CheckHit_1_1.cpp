@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // CheckHit_1_1.cpp
-// 長方形同士の当たり判定
+// 长方形物体间的碰撞检测
 // 
 //------------------------------------------------------------
 
@@ -8,7 +8,7 @@
 
 #define VIEW_WIDTH			640					// 画面宽度
 #define VIEW_HEIGHT			480					// 画面高度
-#define RECT_VEL			5.0f				// 矩形速さ
+#define RECT_VEL			5.0f				// 矩形速度
 
 int			x;
 int			v;
@@ -34,7 +34,7 @@ int InitRect( void )						// 只在程序开始时调用一次
 }
 
 
-int CheckHit( F_RECT *prcRect1, F_RECT *prcRect2 )		// 当たりチェック
+int CheckHit( F_RECT *prcRect1, F_RECT *prcRect2 )		// 碰撞检测
 {
 	int				nResult = false;
 
@@ -52,7 +52,7 @@ int CheckHit( F_RECT *prcRect1, F_RECT *prcRect2 )		// 当たりチェック
 }
 
 
-int MoveRect( void )						// キー入力で矩形Ａを移動
+int MoveRect( void )						// 通过键盘输入移动矩形A
 {
 	float			fVelocity;
 

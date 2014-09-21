@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // CheckHit_2_2.cpp
-// 長方形と円形の当たり判定
+// 圆形与长方形的碰撞检测
 // 
 //------------------------------------------------------------
 
@@ -9,7 +9,7 @@
 #define PI					3.14159265f			// 圆周率
 #define VIEW_WIDTH			640					// 画面宽度
 #define VIEW_HEIGHT			480					// 画面高度
-#define CIRCLE_VEL			5.0f				// 円形速さ
+#define CIRCLE_VEL			5.0f				// 圆形速度
 
 
 struct F_RECT {
@@ -24,7 +24,7 @@ struct F_CIRCLE {
 
 
 F_RECT				rcRect_B;					// 矩形Ｂ
-F_CIRCLE			crCircleA;					// 円形Ａ
+F_CIRCLE			crCircleA;					// 圆形Ａ
 
 
 int InitCircle( void )							// 只在程序开始时调用一次
@@ -38,9 +38,9 @@ int InitCircle( void )							// 只在程序开始时调用一次
 }
 
 
-float DistanceSqr( float x1, float y1, float x2, float y2 )	// 距離の2乗計算
+float DistanceSqr( float x1, float y1, float x2, float y2 )	// 距离的平方计算
 {
-	float			dx, dy;							// 位置の差分
+	float			dx, dy;							// 位置坐标之差
 
 	dx = x2 - x1;									// ⊿ｘ
 	dy = y2 - y1;									// ⊿ｙ
@@ -49,12 +49,12 @@ float DistanceSqr( float x1, float y1, float x2, float y2 )	// 距離の2乗計�
 }
 
 
-int CheckHit( F_RECT *prcRect1, F_CIRCLE *pcrCircle2 )		// 当たりチェック
+int CheckHit( F_RECT *prcRect1, F_CIRCLE *pcrCircle2 )		// 碰撞检测
 {
 	int				nResult = false;
-	float			ar;								// 円の半径
+	float			ar;								// 圆的半径
 
-	// 大き目長方形チェック
+	// 对长方形进行粗略检测
 	if ( ( pcrCircle2->x > prcRect1->fLeft   - pcrCircle2->r ) &&
 		 ( pcrCircle2->x < prcRect1->fRight  + pcrCircle2->r ) &&
 		 ( pcrCircle2->y > prcRect1->fTop    - pcrCircle2->r ) &&
@@ -62,9 +62,9 @@ int CheckHit( F_RECT *prcRect1, F_CIRCLE *pcrCircle2 )		// 当たりチェック
 	{
 		nResult = true;
 		ar = pcrCircle2->r;
-		// 物体碰到左端チェック
+		// 物体碰到左端检测
 		if ( pcrCircle2->x < prcRect1->fLeft ) {
-			// 左上隅チェック
+			// 左上角检测
 			if ( ( pcrCircle2->y < prcRect1->fTop ) )
 			{
 				if ( ( DistanceSqr( prcRect1->fLeft,  prcRect1->fTop,
@@ -73,7 +73,7 @@ int CheckHit( F_RECT *prcRect1, F_CIRCLE *pcrCircle2 )		// 当たりチェック
 				}
 			}
 			else {
-				// 左下隅チェック
+				// 左下角检测
 				if ( ( pcrCircle2->y > prcRect1->fBottom ) )
 				{
 					if ( ( DistanceSqr( prcRect1->fLeft,  prcRect1->fBottom,
@@ -84,9 +84,9 @@ int CheckHit( F_RECT *prcRect1, F_CIRCLE *pcrCircle2 )		// 当たりチェック
 			}
 		}
 		else {
-			// 物体碰到右端チェック
+			// 物体碰到右端检测
 			if ( pcrCircle2->x > prcRect1->fRight ) {
-				// 右上隅チェック
+				// 右上角检测
 				if ( ( pcrCircle2->y < prcRect1->fTop ) )
 				{
 					if ( ( DistanceSqr( prcRect1->fRight,  prcRect1->fTop,
@@ -95,7 +95,7 @@ int CheckHit( F_RECT *prcRect1, F_CIRCLE *pcrCircle2 )		// 当たりチェック
 					}
 				}
 				else {
-					// 右下隅チェック
+					// 右下角检测
 					if ( ( pcrCircle2->y > prcRect1->fBottom ) )
 					{
 						if ( ( DistanceSqr( prcRect1->fRight,  prcRect1->fBottom,
@@ -112,7 +112,7 @@ int CheckHit( F_RECT *prcRect1, F_CIRCLE *pcrCircle2 )		// 当たりチェック
 }
 
 
-int MoveCircle( void )						// キー入力で円形Ａを移動
+int MoveCircle( void )						// 通过键盘输入移动圆形A
 {
 //	float			fVelocity;
 
@@ -677,7 +677,7 @@ int DrawPictureExpWithColor( float x1, float y1, float x2, float y2, TEX_PICTURE
 }
 
 
-// 絵の円形描画(色付き)
+// 渲染圆形图形（带颜色）
 int DrawCircleWithColor( float x, float y, float r, TEX_PICTURE *pTexPic, int nColor )
 {
 	int				i;
@@ -693,7 +693,7 @@ int DrawCircleWithColor( float x, float y, float r, TEX_PICTURE *pTexPic, int nC
 		FlushDrawingPictures();
 	}
 
-	// 色抽出
+	// 颜色抽出
 	fRed   = ( float )( ( nColor >> 16 ) & 0xff ) / 255.0f;
 	fGreen = ( float )( ( nColor >>  8 ) & 0xff ) / 255.0f;
 	fBlue  = ( float )(   nColor         & 0xff ) / 255.0f;

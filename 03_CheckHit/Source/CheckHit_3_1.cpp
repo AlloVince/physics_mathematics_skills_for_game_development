@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // CheckHit_3_1.cpp
-// 円と線分の当たり判定
+// 细长形物体与圆形物体间的碰撞检测
 // 
 //------------------------------------------------------------
 
@@ -9,7 +9,7 @@
 #define PI					3.14159265f			// 圆周率
 #define VIEW_WIDTH			640					// 画面宽度
 #define VIEW_HEIGHT			480					// 画面高度
-#define CIRCLE_VEL			5.0f				// 円形速さ
+#define CIRCLE_VEL			5.0f				// 圆形速度
 
 
 struct F_CIRCLE {
@@ -18,14 +18,14 @@ struct F_CIRCLE {
 };
 
 struct F_RECT_CIRCLE {
-	float			x, y;				// 始点位置
-	float			vx, vy;				// ベクトル
-	float			r;					// 当たりサイズ
+	float			x, y;				// 起点位置
+	float			vx, vy;				// 向量
+	float			r;					// 碰撞大小
 };
 
 
-F_CIRCLE			crCircleA;			// 円形Ａ
-F_RECT_CIRCLE		rcRectCircleB;		// 矩形＋円Ｂ
+F_CIRCLE			crCircleA;			// 圆形Ａ
+F_RECT_CIRCLE		rcRectCircleB;		// 矩形+圆形Ｂ
 
 
 int InitShapes( void )						// 只在程序开始时调用一次
@@ -40,13 +40,13 @@ int InitShapes( void )						// 只在程序开始时调用一次
 }
 
 
-int CheckHit( F_CIRCLE *pcrCircle, F_RECT_CIRCLE *prcRectCircle )		// 当たりチェック
+int CheckHit( F_CIRCLE *pcrCircle, F_RECT_CIRCLE *prcRectCircle )		// 碰撞检测
 {
 	int				nResult = false;
-	float			dx, dy;							// 位置の差分
+	float			dx, dy;							// 位置坐标之差
 	float			t;
-	float			mx, my;							// 最小の距離を与える座標
-	float			ar;								// 2半径を足したもの
+	float			mx, my;							// 最短距离的坐标
+	float			ar;								// 两圆半径之和
 
 	float			fDistSqr;
 
@@ -54,14 +54,14 @@ int CheckHit( F_CIRCLE *pcrCircle, F_RECT_CIRCLE *prcRectCircle )		// 当たり�
 	dy = pcrCircle->y - prcRectCircle->y;				// ⊿ｙ
 	t = ( prcRectCircle->vx * dx + prcRectCircle->vy * dy ) /
 		( prcRectCircle->vx * prcRectCircle->vx + prcRectCircle->vy * prcRectCircle->vy );
-	if ( t < 0.0f ) t = 0.0f;						// tの下限
-	if ( t > 1.0f ) t = 1.0f;						// tの上限
-	mx = prcRectCircle->vx * t + prcRectCircle->x;	// 最小位置を与える座標
+	if ( t < 0.0f ) t = 0.0f;						// t的下限
+	if ( t > 1.0f ) t = 1.0f;						// t的上限
+	mx = prcRectCircle->vx * t + prcRectCircle->x;	// 最短距离线段的坐标
 	my = prcRectCircle->vy * t + prcRectCircle->y;
 	fDistSqr = ( mx - pcrCircle->x ) * ( mx - pcrCircle->x ) +
-			   ( my - pcrCircle->y ) * ( my - pcrCircle->y );	// 距離の２乗
+			   ( my - pcrCircle->y ) * ( my - pcrCircle->y );	// 距离的平方
 	ar = pcrCircle->r + prcRectCircle->r;
-	if ( fDistSqr < ar * ar ) {						// ２乗のまま比較
+	if ( fDistSqr < ar * ar ) {						// 直接使用平方进行比较
 		nResult = true;
 	}
 
@@ -69,7 +69,7 @@ int CheckHit( F_CIRCLE *pcrCircle, F_RECT_CIRCLE *prcRectCircle )		// 当たり�
 }
 
 
-int MoveRect( void )						// キー入力で矩形Ａを移動
+int MoveRect( void )						// 通过键盘输入移动矩形A
 {
 //	float			fVelocity;
 
@@ -597,7 +597,7 @@ int DrawPicture( float x, float y, TEX_PICTURE *pTexPic )
 }
 
 
-// 絵の円形描画(色付き)
+// 渲染圆形图形（带颜色）
 int DrawCircleWithColor( float x, float y, float r, TEX_PICTURE *pTexPic, int nColor )
 {
 	int				i;
@@ -613,7 +613,7 @@ int DrawCircleWithColor( float x, float y, float r, TEX_PICTURE *pTexPic, int nC
 		FlushDrawingPictures();
 	}
 
-	// 色抽出
+	// 颜色抽出
 	fRed   = ( float )( ( nColor >> 16 ) & 0xff ) / 255.0f;
 	fGreen = ( float )( ( nColor >>  8 ) & 0xff ) / 255.0f;
 	fBlue  = ( float )(   nColor         & 0xff ) / 255.0f;
@@ -643,7 +643,7 @@ int DrawCircleWithColor( float x, float y, float r, TEX_PICTURE *pTexPic, int nC
 }
 
 
-// 絵の矩形＋円形描画(色付き)
+// 渲染矩形+圆形图形（带颜色）
 int DrawRectCircleWithColor( float x1, float y1, float vx, float vy, float r, TEX_PICTURE *pTexPic, int nColor )
 {
 	int				i;
@@ -661,7 +661,7 @@ int DrawRectCircleWithColor( float x1, float y1, float vx, float vy, float r, TE
 		FlushDrawingPictures();
 	}
 
-	// 色抽出
+	// 颜色抽出
 	fRed   = ( float )( ( nColor >> 16 ) & 0xff ) / 255.0f;
 	fGreen = ( float )( ( nColor >>  8 ) & 0xff ) / 255.0f;
 	fBlue  = ( float )(   nColor         & 0xff ) / 255.0f;
@@ -669,7 +669,7 @@ int DrawRectCircleWithColor( float x1, float y1, float vx, float vy, float r, TE
 
 	fLength = sqrtf( vx * vx + vy * vy );
 	fSide_x = vy / fLength * r;  fSide_y = -vx / fLength * r;
-	// 矩形頂点セット
+	// 设置矩形顶点
 	g_cvVertices[g_nVertexNum + 0].v4Pos   = XMFLOAT4( x1 + fSide_x,      y1 + fSide_y,      0.0f, 1.0f );
 	g_cvVertices[g_nVertexNum + 0].v4Color = XMFLOAT4( fRed, fGreen, fBlue, fAlpha );
 	g_cvVertices[g_nVertexNum + 0].v2UV    = XMFLOAT2( 0.0f, 0.0f );
@@ -691,7 +691,7 @@ int DrawRectCircleWithColor( float x1, float y1, float vx, float vy, float r, TE
 						  else fAngle1 = PI / 2.0f;
 	fAngle2 = fAngle1 + fAngleDelta;
 	for ( i = 0; i < nDivide_num; i++ ) {
-		// 半円１頂点セット
+		// 设置半圆的1个顶点
 		g_cvVertices[g_nVertexNum + 0].v4Pos   = XMFLOAT4( x1 + r * cosf( fAngle1 ), y1 + r * sinf( fAngle1 ), 0.0f, 1.0f );
 		g_cvVertices[g_nVertexNum + 0].v4Color = XMFLOAT4( fRed, fGreen, fBlue, fAlpha );
 		g_cvVertices[g_nVertexNum + 0].v2UV    = XMFLOAT2( 0.0f, 0.0f );//0.5f + 0.5f * cosf( fAngle1 ), 0.5f + 0.5f * sinf( fAngle1 ) );

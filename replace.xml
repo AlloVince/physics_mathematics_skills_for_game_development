@@ -3,10 +3,10 @@
 <!--第1章翻译-->
 <Item><Old>// 物体の真横への移動(はね返り付き)</Old><New>// 让物体沿水平方向运动（物体碰到画面边缘时折回）</New></Item>
 <Item><Old>// 物体の真横への移動</Old><New>// 让物体沿水平方向运动</New></Item>
-<Item><Old>// 右端</Old><New>// 物体碰到右端</New></Item>
+
 <Item><Old>// はね返る</Old><New>// 弹回</New></Item>
 <Item><Old>// ちょうど壁の位置へ</Old><New>// 重设坐标为画面边缘</New></Item>
-<Item><Old>// 左端</Old><New>// 物体碰到左端</New></Item>
+
 
 <Item><Old>// キー入力による真横への移動</Old><New>// 通过键盘输入控制物体在水平方向运动</New></Item>
 <Item><Old>// プレイヤーの速さ</Old><New>// 玩家的速度</New></Item>
@@ -127,6 +127,50 @@
 <Item><Old>// ラインのベース位置</Old><New>// 图形线的基础位置</New></Item>
 <Item><Old>// ラスタ位置セット</Old><New>// 设置图形线的最后位置</New></Item>
 
+<!--第3章翻译-->
+<Item><Old>// 長方形同士の当たり判定</Old><New>// 长方形物体间的碰撞检测</New></Item>
+<Item><Old>// 矩形速さ</Old><New>// 矩形速度</New></Item>
+<Item><Old>// 当たりチェック</Old><New>// 碰撞检测</New></Item>
+<Item><Old>// キー入力で矩形Ａを移動</Old><New>// 通过键盘输入移动矩形A</New></Item>
+<Item><Old>// 円形同士の当たり判定</Old><New>// 圆形物体间的碰撞检测</New></Item>
+<Item><Old>// 円形速さ</Old><New>// 圆形速度</New></Item>
+<Item><Old>// 円形Ａ、Ｂ</Old><New>// 圆形Ａ、Ｂ</New></Item>
+<Item><Old>// 位置の差分</Old><New>// 位置坐标之差</New></Item>
+<Item><Old>// 2半径を足したもの</Old><New>// 两圆半径之和</New></Item>
+<Item><Old>// 距離の2乗計算</Old><New>// 距离的平方计算</New></Item>
+<Item><Old>// 距離の２乗</Old><New>// 距离的平方</New></Item>
+<Item><Old>// ２乗のまま比較</Old><New>// 直接使用平方进行比较</New></Item>
+
+<Item><Old>// 長方形と円形の当たり判定</Old><New>// 圆形与长方形的碰撞检测</New></Item>
+<Item><Old>// 円形Ａ</Old><New>// 圆形Ａ</New></Item>
+<Item><Old>// 円の半径</Old><New>// 圆的半径</New></Item>
+<Item><Old>// 大き目長方形チェック</Old><New>// 对长方形进行粗略检测</New></Item>
+<Item><Old>// 左端チェック</Old><New>// 左端检测</New></Item>
+<Item><Old>// 左上隅チェック</Old><New>// 左上角检测</New></Item>
+<Item><Old>// 左下隅チェック</Old><New>// 左下角检测</New></Item>
+<Item><Old>// 右端チェック</Old><New>// 右端检测</New></Item>
+<Item><Old>// 右上隅チェック</Old><New>// 右上角检测</New></Item>
+<Item><Old>// 右下隅チェック</Old><New>// 右下角检测</New></Item>
+<Item><Old>// キー入力で円形Ａを移動</Old><New>// 通过键盘输入移动圆形A</New></Item>
+
+<Item><Old>// 円と線分の当たり判定</Old><New>// 细长形物体与圆形物体间的碰撞检测</New></Item>
+<Item><Old>// 始点位置</Old><New>// 起点位置</New></Item>
+
+<Item><Old>// 当たりサイズ</Old><New>// 碰撞大小</New></Item>
+<Item><Old>// 矩形＋円Ｂ</Old><New>// 矩形+圆形Ｂ</New></Item>
+<Item><Old>// 最小の距離を与える座標</Old><New>// 最短距离的坐标</New></Item>
+<Item><Old>// tの下限</Old><New>// t的下限</New></Item>
+<Item><Old>// tの上限</Old><New>// t的上限</New></Item>
+<Item><Old>// 最小位置を与える座標</Old><New>// 最短距离线段的坐标</New></Item>
+
+<Item><Old>// 円と扇形の当たり判定</Old><New>// 圆形与扇形的碰撞检测</New></Item>
+<Item><Old>// 各ベクトルの角度</Old><New>// 各向量的角度</New></Item>
+
+
+<!--第1章特殊-->
+<Item><Old>// 右端</Old><New>// 物体碰到右端</New></Item>
+<Item><Old>// 左端</Old><New>// 物体碰到左端</New></Item>
+
 <!--DirectX部分翻译-->
 <Item><Old>// 画面幅</Old><New>// 画面宽度</New></Item>
 <Item><Old>// 画面高さ</Old><New>// 画面高度</New></Item>
@@ -201,6 +245,20 @@
 <Item><Old>// 1フレーム前時刻初期化</Old><New>// 初始化1帧前的时刻</New></Item>
 <Item><Old>// 1フレーム前時刻初期化</Old><New>// 初始化1帧前的时刻</New></Item>
 
+<!--3章特殊-->
+<Item><Old>// 絵の円形描画(色付き)</Old><New>// 渲染圆形图形（带颜色）</New></Item>
+<Item><Old>// 絵の矩形＋円形描画(色付き)</Old><New>// 渲染矩形+圆形图形（带颜色）</New></Item>
+<Item><Old>// 矩形頂点セット</Old><New>// 设置矩形顶点</New></Item>
+<Item><Old>// 半円１頂点セット</Old><New>// 设置半圆的1个顶点</New></Item>
+
+<!--fx特殊-->
+<Item><Old>// テクスチャ座標</Old><New>// 纹理坐标</New></Item>
+<Item><Old>// Simple2Dシェーダ</Old><New>// Simple2D着色器</New></Item>
+<Item><Old>// テクスチャサンプラ</Old><New>// 纹理采样</New></Item>
+<Item><Old>// 定数バッファ</Old><New>// 常数缓冲</New></Item>
+<Item><Old>// VertexShader出力形式</Old><New>// VertexShader输出形式</New></Item>
+
+<!--公共部分，最后执行-->
 <Item><Old>// デバイスコンテキスト</Old><New>// 适配器上下文</New></Item>
 <Item><Old>// デバイス</Old><New>// 适配器</New></Item>
 <Item><Old>// レンダリングターゲット</Old><New>// 渲染目标</New></Item>
@@ -215,4 +273,8 @@
 <Item><Old>// 幅</Old><New>// 宽度</New></Item>
 <Item><Old>// 高さ</Old><New>// 高度</New></Item>
 <Item><Old>// 時間</Old><New>// 时间</New></Item>
+<Item><Old>// ベクトル</Old><New>// 向量</New></Item>
+<Item><Old>// 色</Old><New>// 颜色</New></Item>
+<Item><Old>// テクスチャ</Old><New>// 纹理</New></Item>
+
 </Replace>

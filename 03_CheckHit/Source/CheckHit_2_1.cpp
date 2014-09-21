@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // CheckHit_2_1.cpp
-// 円形同士の当たり判定
+// 圆形物体间的碰撞检测
 // 
 //------------------------------------------------------------
 
@@ -9,7 +9,7 @@
 #define PI					3.14159265f			// 圆周率
 #define VIEW_WIDTH			640					// 画面宽度
 #define VIEW_HEIGHT			480					// 画面高度
-#define CIRCLE_VEL			5.0f				// 円形速さ
+#define CIRCLE_VEL			5.0f				// 圆形速度
 
 struct F_CIRCLE {
 	float			x, y;				// 中心位置
@@ -17,7 +17,7 @@ struct F_CIRCLE {
 };
 
 
-F_CIRCLE			crCircleA, crCircleB;	// 円形Ａ、Ｂ
+F_CIRCLE			crCircleA, crCircleB;	// 圆形Ａ、Ｂ
 
 
 int InitCircle( void )						// 只在程序开始时调用一次
@@ -31,18 +31,18 @@ int InitCircle( void )						// 只在程序开始时调用一次
 }
 
 
-int CheckHit( F_CIRCLE *pcrCircle1, F_CIRCLE *pcrCircle2 )		// 当たりチェック
+int CheckHit( F_CIRCLE *pcrCircle1, F_CIRCLE *pcrCircle2 )		// 碰撞检测
 {
 	int				nResult = false;
-	float			dx, dy;							// 位置の差分
-	float			ar;								// 2半径を足したもの
+	float			dx, dy;							// 位置坐标之差
+	float			ar;								// 两圆半径之和
 	float			fDistSqr;
 
 	dx = pcrCircle1->x - pcrCircle2->x;				// ⊿ｘ
 	dy = pcrCircle1->y - pcrCircle2->y;				// ⊿ｙ
-	fDistSqr = dx * dx + dy * dy;					// 距離の２乗
+	fDistSqr = dx * dx + dy * dy;					// 距离的平方
 	ar = pcrCircle1->r + pcrCircle2->r;
-	if ( fDistSqr < ar * ar ) {						// ２乗のまま比較
+	if ( fDistSqr < ar * ar ) {						// 直接使用平方进行比较
 		nResult = true;
 	}
 
@@ -50,7 +50,7 @@ int CheckHit( F_CIRCLE *pcrCircle1, F_CIRCLE *pcrCircle2 )		// 当たりチェ�
 }
 
 
-int MoveRect( void )						// キー入力で矩形Ａを移動
+int MoveRect( void )						// 通过键盘输入移动矩形A
 {
 //	float			fVelocity;
 
@@ -578,7 +578,7 @@ int DrawPicture( float x, float y, TEX_PICTURE *pTexPic )
 }
 
 
-// 絵の円形描画(色付き)
+// 渲染圆形图形（带颜色）
 int DrawCircleWithColor( float x, float y, float r, TEX_PICTURE *pTexPic, int nColor )
 {
 	int				i;
@@ -594,7 +594,7 @@ int DrawCircleWithColor( float x, float y, float r, TEX_PICTURE *pTexPic, int nC
 		FlushDrawingPictures();
 	}
 
-	// 色抽出
+	// 颜色抽出
 	fRed   = ( float )( ( nColor >> 16 ) & 0xff ) / 255.0f;
 	fGreen = ( float )( ( nColor >>  8 ) & 0xff ) / 255.0f;
 	fBlue  = ( float )(   nColor         & 0xff ) / 255.0f;

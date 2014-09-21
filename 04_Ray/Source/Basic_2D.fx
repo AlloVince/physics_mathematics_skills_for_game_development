@@ -1,13 +1,13 @@
 ﻿// ---------------------------------------------------------
 // Basic_2D.fx
-// Simple2Dシェーダ
+// Simple2D着色器
 // ---------------------------------------------------------
 
 
-// テクスチャ
-Texture2D Tex2D : register( t0 );		// テクスチャ
+// 纹理
+Texture2D Tex2D : register( t0 );		// 纹理
 
-// テクスチャサンプラ
+// 纹理采样
 SamplerState MeshTextureSampler : register( s0 )
 {
     Filter = MIN_MAG_MIP_LINEAR;
@@ -15,7 +15,7 @@ SamplerState MeshTextureSampler : register( s0 )
     AddressV = Wrap;
 };
 
-// 定数バッファ
+// 常数缓冲
 cbuffer cbNeverChanges : register( b0 )
 {
     matrix View;
@@ -25,15 +25,15 @@ cbuffer cbNeverChanges : register( b0 )
 // VertexShader入力形式
 struct VS_INPUT {
     float4 v4Position	: POSITION;		// 位置
-    float4 v4Color		: COLOR;		// 色
-    float2 v2Tex		: TEXTURE;		// テクスチャ座標
+    float4 v4Color		: COLOR;		// 颜色
+    float2 v2Tex		: TEXTURE;		// 纹理坐标
 };
 
-// VertexShader出力形式
+// VertexShader输出形式
 struct VS_OUTPUT {
     float4 v4Position	: SV_POSITION;	// 位置
-    float4 v4Color		: COLOR;		// 色
-    float2 v2Tex		: TEXTURE;		// テクスチャ座標
+    float4 v4Color		: COLOR;		// 颜色
+    float2 v2Tex		: TEXTURE;		// 纹理坐标
 };
 
 // 顶点着色器
