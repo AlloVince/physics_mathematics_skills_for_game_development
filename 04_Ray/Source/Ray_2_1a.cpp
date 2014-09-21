@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Ray_2_1a.cpp
-// 光線
+// 光线
 // 
 //------------------------------------------------------------
 
@@ -9,7 +9,7 @@
 
 #define VIEW_WIDTH			640					// 画面宽度
 #define VIEW_HEIGHT			480					// 画面高度
-#define RAY_WIDTH			70.0f				// 光線の幅
+#define RAY_WIDTH			70.0f				// 光线宽度
 
 HWND        g_hWnd;							    // 窗口宽度
 
@@ -655,7 +655,7 @@ int WINAPI _tWinMain( HINSTANCE hInst, HINSTANCE, LPTSTR, int )
 				ShowWindow( g_hWnd, SW_SHOWDEFAULT );
 				UpdateWindow( g_hWnd );
 
-				InitRay();											// 光線初期化
+				InitRay();											// 光线初期化
 				
 				QueryPerformanceFrequency( &nTimeFreq );			// 时间单位
 				QueryPerformanceCounter( &nLastTime );				// 初始化1帧前的时刻

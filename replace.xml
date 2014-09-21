@@ -166,6 +166,25 @@
 <Item><Old>// 円と扇形の当たり判定</Old><New>// 圆形与扇形的碰撞检测</New></Item>
 <Item><Old>// 各ベクトルの角度</Old><New>// 各向量的角度</New></Item>
 
+<!--第4章翻译-->
+<Item><Old>// 絵を傾ける(始点変更)</Old><New>// 图形的倾斜（更改起点）</New></Item>
+<Item><Old>// 絵を傾ける</Old><New>// 图形的倾斜</New></Item>
+<Item><Old>// 簡略化光線</Old><New>// 简单光线</New></Item>
+<Item><Old>// 光線の幅</Old><New>// 光线宽度</New></Item>
+<Item><Old>// 光線</Old><New>// 光线</New></Item>
+<Item><Old>// 円形光線</Old><New>// 圆形光线</New></Item>
+<Item><Old>// 円の最小半径</Old><New>// 圆的最小半径</New></Item>
+<Item><Old>// 最大円分割数</Old><New>// 最大的圆分割数</New></Item>
+<Item><Old>// 頂点の初期位置</Old><New>// 顶点的初始位置</New></Item>
+<Item><Old>// 角度変化量</Old><New>// 角度变化量</New></Item>
+
+<Item><Old>// ホーミングレーザー</Old><New>// 带追踪效果的激光</New></Item>
+<Item><Old>// 曲線分割数</Old><New>// 曲线分割数</New></Item>
+<Item><Old>// １セグメントの長さ</Old><New>// 一小节的长度</New></Item>
+<Item><Old>// 方向回転スピード</Old><New>// 方向旋转速度</New></Item>
+<Item><Old>// 方向回転スピード</Old><New>// 方向旋转速度</New></Item>
+<Item><Old>// 滑らかなホーミングレーザー</Old><New>// 更平滑的带追踪效果的激光</New></Item>
+
 
 <!--第1章特殊-->
 <Item><Old>// 右端</Old><New>// 物体碰到右端</New></Item>
@@ -276,5 +295,6 @@
 <Item><Old>// ベクトル</Old><New>// 向量</New></Item>
 <Item><Old>// 色</Old><New>// 颜色</New></Item>
 <Item><Old>// テクスチャ</Old><New>// 纹理</New></Item>
-
+<Item><Old>// 長さ</Old><New>// 长度</New></Item>
+<Item><Old>// 外積</Old><New>// 外积</New></Item>
 </Replace>

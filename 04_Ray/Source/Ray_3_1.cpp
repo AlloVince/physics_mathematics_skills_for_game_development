@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Ray_3_1.cpp
-// 円形光線
+// 圆形光线
 // 
 //------------------------------------------------------------
 
@@ -10,9 +10,9 @@
 #define PI					3.14159265f			// 圆周率
 #define VIEW_WIDTH			640					// 画面宽度
 #define VIEW_HEIGHT			480					// 画面高度
-#define RAY_WIDTH			50.0f				// 光線の幅
-#define MIN_R				RAY_WIDTH			// 円の最小半径
-#define MAX_DIVIDE_NUM		50					// 最大円分割数
+#define RAY_WIDTH			50.0f				// 光线宽度
+#define MIN_R				RAY_WIDTH			// 圆的最小半径
+#define MAX_DIVIDE_NUM		50					// 最大的圆分割数
 
 HWND        g_hWnd;							    // 窗口宽度
 
@@ -29,7 +29,7 @@ int InitRay( void )						// 只在程序开始时调用一次
 	int					i;
 
 	for ( i = 0; i < MAX_DIVIDE_NUM * 4; i++ ) {
-		v2Pos[i].x = 0.0f;  v2Pos[i].y = 0.0f;			// 頂点の初期位置　①
+		v2Pos[i].x = 0.0f;  v2Pos[i].y = 0.0f;			// 顶点的初始位置　①
 	}
 
 	return 0;
@@ -46,7 +46,7 @@ int MoveRay( void )						// 每帧调用
 	float			r1;
 	float			r2;
 	float			fAngle1, fAngle2;				// 角度
-	float			fAngleDiff;						// 角度変化量
+	float			fAngleDiff;						// 角度变化量
 
 	CenterPos.x = VIEW_WIDTH / 2;  CenterPos.y = VIEW_HEIGHT / 2;  
 	GetCursorPos( &CursorPos );
@@ -682,7 +682,7 @@ int WINAPI _tWinMain( HINSTANCE hInst, HINSTANCE, LPTSTR, int )
 				ShowWindow( g_hWnd, SW_SHOWDEFAULT );
 				UpdateWindow( g_hWnd );
 
-				InitRay();											// 光線初期化
+				InitRay();											// 光线初期化
 				
 				QueryPerformanceFrequency( &nTimeFreq );			// 时间单位
 				QueryPerformanceCounter( &nLastTime );				// 初始化1帧前的时刻
